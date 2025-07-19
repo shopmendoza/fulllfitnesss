@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - FullFit</title>
+    <!-- Metadatos para SEO -->
+    <meta name="description" content="Contacta con FullFit para resolver tus dudas sobre nuestros productos fitness. Estamos aquí para ayudarte con tu compra.">
+    <meta name="keywords" content="contacto fitness, atención cliente, FullFit contacto, soporte compras">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Animate.css para animaciones adicionales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="../css/responsive.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/icons/favicon.png">
+</head>
+<body>
+    <!-- Carrito móvil -->
+    <div class="d-lg-none mobile-cart" onclick="viewCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-badge badge rounded-pill" id="mobileCartCount">0</span>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="../index.html">
+                <i class="fas fa-dumbbell me-2"></i>
+                <span>FullFit</span>
+            </a>
+
+            <!-- Buscador en Navbar -->
+            <form class="d-none d-md-flex mx-auto" onsubmit="return false;">
+                <div class="input-group nav-search">
+                    <input type="search" 
+                           class="form-control form-control-sm" 
+                           placeholder="Buscar productos..." 
+                           id="navbarSearch"
+                           aria-label="Buscar">
+                    <button class="btn btn-sm btn-primary" type="button" onclick="handleNavbarSearch()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="productos.html">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contacto.html">Contacto</a>
+                    </li>
+                    <li class="nav-item d-none d-lg-block">
+                        <a class="nav-link position-relative" href="#" id="cartButton">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cartCount" class="cart-badge badge rounded-pill bg-danger">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal del Carrito Mejorado -->
+<div class="modal fade" id="cartModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-shopping-cart me-2"></i>
+                        Carrito de Compras
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                    <!-- Estado del carrito vacío -->
+                    <div id="emptyCart" class="text-center py-5" style="display: none;">
+                        <i class="fas fa-shopping-cart fa-4x text-muted mb-3"></i>
+                        <h4 class="text-muted">Tu carrito está vacío</h4>
+                        <p>¡Agrega algunos productos para comenzar!</p>
+                        <a href="productos.html" class="btn btn-primary">
+                            Ir a Productos
+                        </a>
+                    </div>
+
+                    <!-- Contenido del carrito -->
+                    <div id="cartContent">
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Subtotal</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cartItems">
+                                    <!-- Los items se insertarán aquí -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Resumen del carrito -->
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Código de descuento">
+                                            <button class="btn btn-outline-secondary" type="button">Aplicar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="text-end">
+                                            <p class="mb-1">Subtotal: $<span id="cartSubtotal">0.00</span></p>
+                                            <p class="mb-1">Envío: $<span id="cartShipping">0.00</span></p>
+                                            <h4 class="mt-2">Total: $<span id="cartTotal">0.00</span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-arrow-left me-2"></i>Seguir Comprando
+                    </button>
+                    <button type="button" class="btn btn-primary" id="checkoutButton">
+                        <i class="fas fa-check me-2"></i>Finalizar Compra
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Header de Contacto Mejorado -->
+    <header class="contact-header py-5" style="background-image: url('https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80'); background-size: cover; background-position: center; position: relative; min-height: 550px; display: flex; align-items: center;">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255, 68, 68, 0.9) 0%, rgba(0, 0, 0, 0.8) 100%);"></div>
+        <div class="container position-relative">
+            <div class="row">
+                <div class="col-lg-8 mx-auto" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="text-center mb-4">
+                        <span class="badge bg-light text-danger px-4 py-2 mb-3 fs-6 fw-bold" style="border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">CONECTA CON NOSOTROS</span>
+</div>
+                    <h1 class="display-3 text-white fw-bold mb-4 text-center" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.4);">¿Cómo Podemos Ayudarte?</h1>
+                    <p class="lead text-white mb-5 opacity-90 text-center px-3" style="font-size: 1.3rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.5);">
+                        Estamos comprometidos a responder tus consultas y brindarte el mejor asesoramiento para que alcances tus objetivos fitness.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 justify-content-center">
+                        <a href="https://wa.me/542615750410" target="_blank" class="btn btn-success btn-lg px-4" style="border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                            <i class="fab fa-whatsapp me-2"></i>WhatsApp Directo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección de Contacto -->
+    <section class="contact-section py-5" style="background-color: #f8f9fa;">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-10 text-center">
+                    <h2 class="mb-4 fw-bold" style="color: #333;" data-aos="fade-up">Estamos a un mensaje de distancia</h2>
+                    <p class="lead text-muted mb-0" data-aos="fade-up" data-aos-delay="100">Nuestro equipo está listo para responder todas tus dudas y ayudarte a encontrar los productos perfectos para tus objetivos.</p>
+                </div>
+            </div>
+            
+            <div class="row g-5">
+                <!-- Información de Contacto -->
+                <div class="col-12">
+                    <div class="contact-info h-100 mx-auto" data-aos="fade-up" style="max-width: 600px;">
+                        <div class="contact-card" style="border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 5px solid var(--primary-color);">
+                            <div class="contact-card-body p-4">
+                                <h3 class="contact-title mb-4" style="color: #333; font-weight: 700; position: relative; padding-bottom: 15px;">
+                                    Información de Contacto
+                                    <span style="position: absolute; bottom: 0; left: 0; width: 50px; height: 3px; background: var(--primary-color);"></span>
+                                </h3>
+                                
+                                <div class="contact-item d-flex align-items-center p-3 mb-3" style="background: #f8f9fa; border-radius: 10px; transition: all 0.3s ease;">
+                                    <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary-color); display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                                        <i class="fas fa-phone text-white"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h4 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 3px; color: #444;">Teléfono</h4>
+                                        <a href="tel:2615750410" style="text-decoration: none; color: #666; font-weight: 500; transition: all 0.3s ease;">+54 261 575-0410</a>
+                                    </div>
+                                </div>
+
+                                <div class="contact-item d-flex align-items-center p-3 mb-3" style="background: #f8f9fa; border-radius: 10px; transition: all 0.3s ease;">
+                                    <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary-color); display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                                        <i class="fas fa-envelope text-white"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h4 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 3px; color: #444;">Email</h4>
+                                        <a href="mailto:fullfitmdz@gmail.com" style="text-decoration: none; color: #666; font-weight: 500; transition: all 0.3s ease; word-break: break-all;">fullfitmdz@gmail.com</a>
+                                    </div>
+                                </div>
+
+                                <div class="contact-item d-flex align-items-center p-3 mb-4" style="background: #f8f9fa; border-radius: 10px; transition: all 0.3s ease;">
+                                    <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary-color); display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                                        <i class="fab fa-instagram text-white"></i>
+                                    </div>
+                                    <div class="contact-details">
+                                        <h4 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 3px; color: #444;">Instagram</h4>
+                                        <a href="https://instagram.com/fullfit.mdz" target="_blank" style="text-decoration: none; color: #666; font-weight: 500; transition: all 0.3s ease;">@fullfit.mdz</a>
+                                    </div>
+                                </div>
+
+                                <div style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; padding: 2rem; border-radius: 10px; text-align: center; margin-top: 2rem;">
+                                    <i class="fab fa-whatsapp mb-3" style="font-size: 3rem;"></i>
+                                    <h4 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 1rem;">Atención inmediata por WhatsApp</h4>
+                                    <a href="https://wa.me/542615750410" target="_blank" class="btn btn-light btn-lg px-4 fw-bold" style="border-radius: 30px; color: #25D366; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                                        Chatear ahora
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Eliminar la columna del formulario de contacto -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Mejorado -->
+    <footer class="footer bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="footer-brand d-flex align-items-center mb-3">
+                        <i class="fas fa-dumbbell me-2 fa-2x text-danger"></i>
+                        <h4 class="mb-0">FullFit</h4>
+                    </div>
+                    <p class="mb-3">Tu tienda fitness de confianza con los mejores precios y productos para potenciar tu entrenamiento.</p>
+                    <div class="social-links d-flex">
+                        <a href="https://www.facebook.com/share/1Z7GqkKhft/" target="_blank" class="me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/fullfit.mdz" target="_blank" class="me-3"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-6 mb-4 mb-md-0">
+                    <h5 class="mb-4 footer-title">Navegación</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="../index.html">Inicio</a></li>
+                        <li class="mb-2"><a href="productos.html">Productos</a></li>
+                        <li class="mb-2"><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-6 mb-4 mb-md-0">
+                    <h5 class="mb-4 footer-title">Categorías</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="productos.html?categoria=suplementos">Suplementos</a></li>
+                        <li class="mb-2"><a href="productos.html?categoria=accesorios">Accesorios</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 FullFit. Todos los derechos reservados. |
+  <a href="#" id="link-terminos" class="text-danger text-decoration-underline">Términos y Condiciones</a> |
+  <a href="#" id="link-privacidad" class="text-danger text-decoration-underline">Política de Privacidad</a>
+</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <!-- Enlaces eliminados -->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Script para animaciones -->
+    <script type="text/javascript">
+        // Inicializar AOS (Animate On Scroll)
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+        });
+    </script>
+    
+    <script src="../js/main.js"></script>
+    <!-- Modal Términos y Condiciones -->
+<div class="modal fade" id="modalTerminos" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Términos y Condiciones</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>Este sitio web es operado por Santiago Videla. Al realizar una compra a través de esta página, aceptás los siguientes términos:</p>
+        <ul>
+          <li>Todos los productos ofrecidos son suplementos originales, sellados y nuevos, adquiridos de distribuidores autorizados.</li>
+          <li>Los pagos se realizan mediante transferencia bancaria, efectivo o el método acordado al finalizar la compra por WhatsApp.</li>
+          <li>Los envíos se coordinan por WhatsApp una vez confirmada la compra. El comprador es responsable de brindar correctamente sus datos de entrega.</li>
+          <li>Santiago Videla se compromete a realizar la entrega en el tiempo y lugar acordados junto con el comprador.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Política de Privacidad -->
+<div class="modal fade" id="modalPrivacidad" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Política de Privacidad</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li>Se recolectan datos personales mínimos (nombre, teléfono, dirección, productos y forma de pago) únicamente para coordinar la venta y la entrega.</li>
+          <li>Los datos no se almacenan en ninguna base de datos externa, ni se utilizan con fines publicitarios.</li>
+          <li>Los datos solo se usan para organizar la entrega.</li>
+          <li>El comprador puede solicitar la eliminación de sus datos personales comunicándose a través de WhatsApp.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.getElementById('link-terminos').addEventListener('click', function(e) {
+  e.preventDefault();
+  var modal = new bootstrap.Modal(document.getElementById('modalTerminos'));
+  modal.show();
+});
+document.getElementById('link-privacidad').addEventListener('click', function(e) {
+  e.preventDefault();
+  var modal = new bootstrap.Modal(document.getElementById('modalPrivacidad'));
+  modal.show();
+});
+</script>
+</body>
+</html>

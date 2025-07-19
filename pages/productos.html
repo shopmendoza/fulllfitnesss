@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - FullFit</title>
+    <!-- Metadatos para SEO -->
+    <meta name="description" content="Explora nuestra selección premium de suplementos, ropa deportiva y accesorios fitness. Calidad garantizada y envíos rápidos.">
+    <meta name="keywords" content="productos fitness, suplementos deportivos, ropa gym, accesorios entrenamiento, proteínas, FullFit">
+
+      <!-- Google Fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Animate.css para animaciones adicionales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="../css/responsive.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/icons/favicon.png">
+</head>
+<body>
+    <!-- Navbar -->
+    <!-- Navbar Mejorado -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="../index.html">
+            <i class="fas fa-dumbbell me-2"></i>
+            <span>FullFit</span>
+        </a>
+
+        <!-- Buscador en Navbar -->
+        <form class="d-none d-md-flex mx-auto" onsubmit="return false;">
+            <div class="input-group nav-search">
+                <input type="search" 
+                       class="form-control form-control-sm" 
+                       placeholder="Buscar productos..." 
+                       id="navbarSearch"
+                       aria-label="Buscar">
+                <button class="btn btn-sm btn-primary" type="button" onclick="handleNavbarSearch()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </form>
+
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../index.html">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="productos.html">Productos</a>
+                </li>
+               
+                <li class="nav-item">
+                    <a class="nav-link" href="contacto.html">Contacto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link position-relative" href="#" id="cartButton">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cartCount" class="cart-badge badge rounded-pill bg-danger">0</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <!-- Header -->
+    <header class="products-header py-5 bg-dark text-white" style="margin-top: 80px; padding-top: 2rem; padding-bottom: 1rem;">
+        <div class="container">
+            <h1 class="display-4 mb-4" data-aos="fade-up">Nuestros Productos</h1>
+            <p class="lead mb-0" data-aos="fade-up" data-aos-delay="100">
+                Encuentra todo lo que necesitas para tu entrenamiento
+            </p>
+        </div>
+    </header>
+
+    <!-- Filtros y Productos -->
+    
+<section class="products-section" style="padding-top: 0;">
+    <div class="container">
+        <!-- Barra de filtros flotante -->
+        <div class="filter-bar bg-white shadow-sm" data-aos="fade-down">
+            <div class="d-flex flex-wrap gap-2 align-items-center">
+                <!-- Búsqueda compacta -->
+                <div class="search-compact">
+                    <div class="input-group input-group-sm">
+                        <input type="text" 
+                               class="form-control" 
+                               id="searchProducts" 
+                               placeholder="Buscar productos...">
+                        <button class="btn btn-primary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filtros rápidos -->
+                <div class="btn-group btn-group-sm ms-auto">
+                    <button class="btn btn-outline-primary active" data-filter="todos">
+                        Todos
+                    </button>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Suplementos
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" data-filter="proteinas">Proteínas</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="creatinas">Creatinas</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-outline-primary" data-filter="accesorios">
+                        Accesorios
+                    </button>
+                </div>
+
+                <!-- Ordenar -->
+                <div class="position-relative" style="width: auto; display: inline-block;">
+  <select class="form-select form-select-sm" style="width: auto; padding-right: 2.2rem;" id="sortBy">
+      <option value="price-low">Precio: Menor a Mayor</option>
+      <option value="price-high">Precio: Mayor a Menor</option>
+  </select>
+  <span style="position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%); pointer-events: none; color: #3b82f6; font-size: 1.1rem;">
+    <i class="fas fa-chevron-down"></i>
+  </span>
+</div>
+            </div>
+        </div>
+
+        <!-- Aviso visual para scroll -->
+        <div class="scroll-down-indicator text-center my-3">
+          <span class="animate__animated animate__bounce animate__infinite" style="font-size:2rem; color:#ff4444;">
+            <i class="fas fa-chevron-down"></i>
+          </span>
+          <div class="text-muted" style="font-size:1rem;">Desliza hacia abajo para ver más productos</div>
+        </div>
+
+        <!-- Grid de productos -->
+        <div class="row g-4" id="productsGrid">
+            <!-- Los productos se cargarán dinámicamente con JavaScript -->
+        </div>
+    </div>
+</section>
+
+    <!-- Modal de Detalle de Producto -->
+    <div class="modal fade" id="productDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Detalle del Producto
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row">
+                        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+                            <div class="product-detail-image mb-3">
+                                <img id="productDetailImage" src="" alt="" class="img-fluid rounded" style="width: 100%; height: 220px; object-fit: cover;">
+                            </div>
+                            <div class="product-detail-image">
+                                <img id="productDetailNutrition" src="" alt="Valor nutricional" class="img-fluid rounded" style="width: 100%; height: 80px; object-fit: contain; background: #fff;">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="product-detail-info">
+                                <h3 id="productDetailName" class="mb-3"></h3>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary me-2" id="productDetailCategory"></span>
+                                    <span class="badge bg-success" id="productDetailStock">En Stock</span>
+                                </div>
+                                <div class="mb-4">
+                                    <h4 class="text-danger mb-2" id="productDetailPrice"></h4>
+                                </div>
+                                <div class="mb-4">
+                                    <h6>Descripción:</h6>
+                                    <p id="productDetailDescription" class="text-muted"></p>
+                                </div>
+                                <div class="d-flex flex-column align-items-center gap-3 w-100">
+  <div id="flavorSelectorContainer" class="w-100 mb-2" style="display:none;"></div>
+  <div class="quantity-selector d-flex align-items-center justify-content-center mb-2">
+    <button class="btn btn-outline-secondary quantity-btn" type="button" onclick="decreaseQuantity()">-</button>
+    <input type="number" class="form-control text-center quantity-input mx-2" id="productQuantity" value="1" min="1" max="10">
+    <button class="btn btn-outline-secondary quantity-btn" type="button" onclick="increaseQuantity()">+</button>
+  </div>
+  <button class="btn btn-primary btn-lg w-100 mt-2" onclick="addToCartFromDetail()">
+    <i class="fas fa-shopping-cart me-2"></i>Añadir al Carrito
+  </button>
+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>Cerrar
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" onclick="viewCart()">
+                        <i class="fas fa-shopping-cart me-2"></i>Ver Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal del Carrito -->
+    <div class="modal fade cart-modal" id="cartModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-shopping-cart me-2"></i>
+                        Carrito de Compras
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Estado del carrito vacío -->
+                    <div id="emptyCart" class="text-center py-5" style="display: none;">
+                        <i class="fas fa-shopping-cart fa-4x text-muted mb-3"></i>
+                        <h4 class="text-muted">Tu carrito está vacío</h4>
+                        <p>¡Agrega algunos productos para comenzar!</p>
+                        <button class="btn btn-primary" data-bs-dismiss="modal">
+                            Ver Productos
+                        </button>
+                    </div>
+
+                    <!-- Contenido del carrito -->
+                    <div id="cartContent">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Subtotal</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cartItems">
+                                    <!-- Los items del carrito se insertarán aquí -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Resumen del carrito -->
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Código de descuento">
+                                            <button class="btn btn-outline-secondary" type="button">Aplicar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="text-end">
+                                            <p class="mb-1">Subtotal: $<span id="cartSubtotal">0.00</span></p>
+                                            <p class="mb-1">Envío: $<span id="cartShipping">0.00</span></p>
+                                            <h4 class="mt-2">Total: $<span id="cartTotal">0.00</span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Seguir Comprando
+                    </button>
+                    <button type="button" class="btn btn-primary" id="checkoutButton">
+                        <i class="fas fa-lock me-2"></i>
+                        Finalizar Compra
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Mejorado -->
+    <footer class="footer bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="footer-brand d-flex align-items-center mb-3">
+                        <i class="fas fa-dumbbell me-2 fa-2x text-danger"></i>
+                        <h4 class="mb-0">FullFit</h4>
+                    </div>
+                    <p class="mb-3">Tu tienda fitness de confianza con los mejores precios y productos para potenciar tu entrenamiento.</p>
+                    <div class="social-links d-flex">
+                        <a href="https://www.facebook.com/share/1Z7GqkKhft/" target="_blank" class="me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com/fullfit.mdz" target="_blank" class="me-3"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-6 mb-4 mb-md-0">
+                    <h5 class="mb-4 footer-title">Navegación</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="../index.html">Inicio</a></li>
+                        <li class="mb-2"><a href="productos.html">Productos</a></li>
+                        <li class="mb-2"><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-6 mb-4 mb-md-0">
+                    <h5 class="mb-4 footer-title">Categorías</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li class="mb-2"><a href="productos.html?categoria=suplementos">Suplementos</a></li>
+                        <li class="mb-2"><a href="productos.html?categoria=accesorios">Accesorios</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 FullFit. Todos los derechos reservados. |
+  <a href="#" id="link-terminos" class="text-danger text-decoration-underline">Términos y Condiciones</a> |
+  <a href="#" id="link-privacidad" class="text-danger text-decoration-underline">Política de Privacidad</a>
+</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <!-- Enlaces eliminados -->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../js/main.js"></script>
+    <!-- Modal del Carrito Mejorado -->
+<div class="modal fade cart-modal" id="cartModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-shopping-cart me-2"></i>
+                    Tu Carrito
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <!-- Estado del carrito vacío -->
+                <div id="emptyCart" class="text-center py-5" style="display: none;">
+                    <div class="empty-cart-animation mb-4">
+                        <i class="fas fa-shopping-cart fa-4x text-muted"></i>
+                        <div class="empty-cart-wave"></div>
+                    </div>
+                    <h4 class="text-muted mb-3">Tu carrito está vacío</h4>
+                    <p class="text-muted mb-4">¡Agrega algunos productos para comenzar!</p>
+                    <a href="productos.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-store me-2"></i>Ver Productos
+                    </a>
+                </div>
+
+                <!-- Contenido del carrito -->
+                <div id="cartContent">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="cartItems">
+                                <!-- Los items se insertarán aquí dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Resumen del carrito -->
+                    <div class="card cart-summary mt-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="coupon-section">
+                                        <h6 class="mb-3">¿Tienes un código de descuento?</h6>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Ingresa tu código">
+                                            <button class="btn btn-outline-primary" type="button">Aplicar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="cart-totals">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Subtotal:</span>
+                                            <span class="fw-bold">$<span id="cartSubtotal">0.00</span></span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Envío:</span>
+                                            <span class="fw-bold">A coordinar</span>
+                                        </div>
+                                        <div class="shipping-info small text-success mb-2">
+                                            <i class="fas fa-truck me-1"></i>
+                                            El costo de envío se acuerda con el vendedor.
+                                        </div>
+                                        <hr>
+                                        <div class="d-flex justify-content-between mb-0">
+                                            <h5>Total:</h5>
+                                            <h5 class="text-primary">$<span id="cartTotal">0.00</span></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-arrow-left me-2"></i>Seguir Comprando
+                </button>
+                <button type="button" class="btn btn-primary" id="checkoutButton">
+                    <i class="fas fa-check me-2"></i>Finalizar Compra
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notifications -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert">
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="fas fa-check-circle me-2"></i>
+                <span id="successToastMessage"></span>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+    
+    <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert">
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <span id="errorToastMessage"></span>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+</div>
+<!-- Modal Términos y Condiciones -->
+<div class="modal fade" id="modalTerminos" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Términos y Condiciones</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>Este sitio web es operado por Santiago Videla. Al realizar una compra a través de esta página, aceptás los siguientes términos:</p>
+        <ul>
+          <li>Todos los productos ofrecidos son suplementos originales, sellados y nuevos, adquiridos de distribuidores autorizados.</li>
+          <li>Los pagos se realizan mediante transferencia bancaria, efectivo o el método acordado al finalizar la compra por WhatsApp.</li>
+          <li>Los envíos se coordinan por WhatsApp una vez confirmada la compra. El comprador es responsable de brindar correctamente sus datos de entrega.</li>
+          <li>Santiago Videla se compromete a realizar la entrega en el tiempo y lugar acordados junto con el comprador.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Política de Privacidad -->
+<div class="modal fade" id="modalPrivacidad" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Política de Privacidad</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li>Se recolectan datos personales mínimos (nombre, teléfono, dirección, productos y forma de pago) únicamente para coordinar la venta y la entrega.</li>
+          <li>Los datos no se almacenan en ninguna base de datos externa, ni se utilizan con fines publicitarios.</li>
+          <li>Los datos solo se usan para organizar la entrega.</li>
+          <li>El comprador puede solicitar la eliminación de sus datos personales comunicándose a través de WhatsApp.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.getElementById('link-terminos').addEventListener('click', function(e) {
+  e.preventDefault();
+  var modal = new bootstrap.Modal(document.getElementById('modalTerminos'));
+  modal.show();
+});
+document.getElementById('link-privacidad').addEventListener('click', function(e) {
+  e.preventDefault();
+  var modal = new bootstrap.Modal(document.getElementById('modalPrivacidad'));
+  modal.show();
+});
+</script>
+<!-- Lightbox para imagen expandida -->
+<div id="imageLightbox" class="lightbox-overlay" style="display:none;">
+  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <img class="lightbox-content" id="lightboxImg" src="" alt="Imagen expandida">
+</div>
+</body>
+</html>
