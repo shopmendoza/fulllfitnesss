@@ -423,34 +423,6 @@ h1, h2, h3, h4, h5, h6,
     border-width: 2px;
 }
 
-/* Responsive para dispositivos móviles */
-@media (max-width: 768px) {
-    .hero {
-        height: 100vh;
-        min-height: 700px;
-    }
-    
-    .hero h1 {
-        font-size: 2.8rem;
-        margin-top: 2rem;
-    }
-    
-    .hero .lead {
-        font-size: 1.3rem;
-        margin-bottom: 2rem;
-    }
-    
-    .hero .btn-primary, .hero .btn-outline-light {
-        padding: 0.8rem 2rem;
-        font-size: 1rem;
-    }
-    
-    .hero-background {
-        height: 100%;
-        object-position: 60% center;
-    }
-}
-
 /* Categorías */
 .categories {
     position: relative;
@@ -819,36 +791,6 @@ h1, h2, h3, h4, h5, h6,
     }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .hero {
-        height: 60vh;
-    }
-
-    .category-card {
-        margin-bottom: 1rem;
-    }
-
-    .product-card {
-        margin-bottom: 1.5rem;
-    }
-}
-
-/* Media queries para responsive */
-@media (max-width: 991.98px) {
-    .navbar-collapse {
-        background: rgba(33, 37, 41, 0.98);
-        padding: 1rem;
-        margin: 0.5rem -1rem;
-        border-radius: 0.5rem;
-    }
-    
-    .nav-search {
-        width: 100%;
-        margin: 1rem 0;
-    }
-}
-
 .product-zoom-icon {
     position: absolute;
     top: 10px;
@@ -1176,17 +1118,6 @@ h1, h2, h3, h4, h5, h6,
   cursor: pointer;
   z-index: 2100;
   text-shadow: 0 2px 8px #000;
-}
-@media (max-width: 768px) {
-  .lightbox-content {
-    max-width: 98vw;
-    max-height: 70vh;
-  }
-  .lightbox-close {
-    top: 12px;
-    right: 18px;
-    font-size: 2.2rem;
-  }
 }
 
 .products-section {

@@ -162,9 +162,18 @@
                 <span>FullFit</span>
             </a>
 
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <!-- Grupo de íconos a la derecha en móvil -->
+            <div class="d-flex align-items-center">
+                <!-- Carrito móvil -->
+                <div class="d-lg-none mobile-cart me-3" onclick="viewCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge badge rounded-pill" id="mobileCartCount">0</span>
+                </div>
+
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
@@ -216,6 +225,11 @@
                     <form id="checkout-form">
                         <div class="checkout-card mb-4">
                             <h3 class="checkout-title">Datos Personales y Entrega</h3>
+                            <!-- 🔵 4️⃣ MENSAJE GLOBAL SOBRE WHATSAPP -->
+                            <div class="alert alert-info d-flex align-items-center mb-3" role="alert">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <span><strong>Importante:</strong> Estos datos se envían por WhatsApp al confirmar el pedido para concretar envío y pago.</span>
+                            </div>
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label for="nombre" class="form-label">Nombre completo</label>
@@ -560,4 +574,4 @@ document.getElementById('link-privacidad-checkout').addEventListener('click', fu
 });
 </script>
 </body>
-</html> 
+</html>

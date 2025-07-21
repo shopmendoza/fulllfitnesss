@@ -146,9 +146,18 @@
                 <span>FullFit</span>
             </a>
 
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <!-- Grupo de íconos a la derecha en móvil -->
+            <div class="d-flex align-items-center">
+                <!-- Carrito móvil -->
+                <div class="d-lg-none mobile-cart me-2" onclick="viewCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge badge rounded-pill" id="mobileCartCount">0</span>
+                </div>
+
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
@@ -467,4 +476,4 @@
         });
     </script>
 </body>
-</html> 
+</html>

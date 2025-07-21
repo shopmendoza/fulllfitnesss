@@ -136,6 +136,18 @@ function displayProducts(productsToShow = products) {
                     <h5 class="card-title">${product.name}</h5>
                     <p class="card-text"><strong>$${product.price.toLocaleString('es-AR')} ARS</strong></p>
                     ${hasFlavors ? `<small class="text-muted"><i class="fas fa-tag"></i> Disponible en sabores</small>` : ''}
+                    
+                    <!-- 🔵 2️⃣ BOTONES PARA MÓVIL - Siempre visibles en móvil -->
+                    <div class="mobile-product-buttons d-block d-md-none mt-2">
+                        ${hasFlavors ? `
+                            <button class="btn btn-outline-primary btn-sm w-100 mb-2" onclick="event.stopPropagation(); showProductDetail(${JSON.stringify(product).replace(/\"/g, '&quot;')})">
+                                <i class="fas fa-tag me-1"></i>Elegir sabor
+                            </button>
+                        ` : ''}
+                        <button class="btn btn-primary btn-sm w-100" onclick="event.stopPropagation(); ${hasFlavors ? `showProductDetail(${JSON.stringify(product).replace(/\"/g, '&quot;')})` : `addToCart(${JSON.stringify(product).replace(/\"/g, '&quot;')})`}">
+                            <i class="fas fa-shopping-cart me-1"></i>Añadir al carrito
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -203,16 +215,19 @@ function updateCart() {
             // Crear ID único para identificar el item (incluyendo sabor)
             const uniqueId = item.sabor ? `${item.id}-${item.sabor}` : item.id;
             
-            // --- CORRECCIÓN DE RUTA DE IMAGEN SOLO EN index.html ---
+            // --- CORRECCIÓN DE RUTA DE IMAGEN DINÁMICA ---
             let imageSrc = item.image;
-            if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname === '') {
-                imageSrc = imageSrc.replace(/^\.\.\//, '');
+            const isIndex = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/');
+            if (isIndex && imageSrc.startsWith('../')) {
+                imageSrc = imageSrc.substring(3); // Remover ../
+            } else if (!isIndex && !imageSrc.startsWith('../')) {
+                imageSrc = '../' + imageSrc; // Añadir ../
             }
             // --- FIN CORRECCIÓN ---
 
             return `
             <tr data-item-id="${uniqueId}">
-                <td>
+                <td data-label="Producto">
                     <div class="d-flex align-items-center" style="cursor:pointer" onclick="goToProduct(${item.id})">
                         <img src="${imageSrc}" alt="${displayName}" 
                              style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;">
@@ -223,8 +238,8 @@ function updateCart() {
                         </div>
                     </div>
                 </td>
-                <td><span style="white-space:nowrap;">$${item.price.toLocaleString('es-AR')} ARS</span></td>
-                <td>
+                <td data-label="Precio"><span style="white-space:nowrap;">$${item.price.toLocaleString('es-AR')} ARS</span></td>
+                <td data-label="Cantidad">
                     <div class="quantity-controls d-flex align-items-center justify-content-center">
                         <button class="btn btn-sm btn-outline-danger decrease-btn" type="button" data-item-id="${uniqueId}" title="Disminuir">
                             <i class="fas fa-minus"></i>
@@ -235,8 +250,8 @@ function updateCart() {
                         </button>
                     </div>
                 </td>
-                <td><span style="white-space:nowrap;">$${(item.price * item.quantity).toLocaleString('es-AR')} ARS</span></td>
-                <td>
+                <td data-label="Subtotal"><span style="white-space:nowrap;">$${(item.price * item.quantity).toLocaleString('es-AR')} ARS</span></td>
+                <td data-label="Eliminar">
                     <button class="btn btn-sm btn-danger remove-btn" data-item-id="${uniqueId}">
                         <i class="fas fa-trash"></i>
                     </button>
@@ -1024,4 +1039,3 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Inicializar carrito
   updateCart();
-

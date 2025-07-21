@@ -52,9 +52,18 @@
             </div>
         </form>
 
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <!-- Grupo de íconos a la derecha en móvil -->
+            <div class="d-flex align-items-center">
+                <!-- Carrito móvil -->
+                <div class="d-lg-none mobile-cart me-3" onclick="viewCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge badge rounded-pill" id="mobileCartCount">0</span>
+                </div>
+
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
@@ -68,7 +77,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="contacto.html">Contacto</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item d-none d-lg-block">
                     <a class="nav-link position-relative" href="#" id="cartButton">
                         <i class="fas fa-shopping-cart"></i>
                         <span id="cartCount" class="cart-badge badge rounded-pill bg-danger">0</span>
@@ -142,12 +151,12 @@
         </div>
 
         <!-- Aviso visual para scroll -->
-        <div class="scroll-down-indicator text-center my-3">
-          <span class="animate__animated animate__bounce animate__infinite" style="font-size:2rem; color:#ff4444;">
-            <i class="fas fa-chevron-down"></i>
-          </span>
-          <div class="text-muted" style="font-size:1rem;">Desliza hacia abajo para ver más productos</div>
-        </div>
+<div class="scroll-down-indicator text-center my-3">
+  <span class="animate__animated animate__bounce animate__infinite" style="font-size:1.2rem; color:#ff4444;">
+    <i class="fas fa-chevron-down"></i>
+  </span>
+  <div class="text-muted" style="font-size:0.7rem;">Desliza hacia abajo para ver más productos</div>
+</div>
 
         <!-- Grid de productos -->
         <div class="row g-4" id="productsGrid">
@@ -167,7 +176,12 @@
                     </h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body p-4">
+<div class="modal-body p-4">
+    <div id="scrollIndicator" class="alert alert-info alert-dismissible fade show d-flex align-items-center justify-content-center mb-3" role="alert">
+        <i class="fas fa-chevron-down me-2"></i>
+        <span>Desliza hacia abajo para añadir al carrito</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
                     <div class="row">
                         <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
                             <div class="product-detail-image mb-3">

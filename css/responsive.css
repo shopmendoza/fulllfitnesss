@@ -1,194 +1,1112 @@
-/* Estilos específicos para móvil */
-@media (max-width: 768px) {
-    /* Prevenir scroll horizontal */
-    html, body {
-        max-width: 100%;
-        overflow-x: hidden;
-    }
+/* 
+==============================================
+Hoja de Estilos Responsivos para FullFit
+==============================================
+*/
 
-    /* Contenedores principales */
-    .container, 
-    .container-fluid {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding-left: 10px !important;
-        padding-right: 10px !important;
-        overflow-x: hidden;
-    }
-
-    /* Navbar más específico */
-    body .navbar.navbar-expand-lg.navbar-dark {
-        position: fixed;
-        width: 100%;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1030;
-        padding: 5px 0;
-        min-height: auto;
+/* 
+----------------------------------------------
+Punto de quiebre para Tablets y dispositivos medianos (hasta 992px)
+----------------------------------------------
+*/
+@media (max-width: 991.98px) {
+    /* --- Navbar --- */
+    .navbar-collapse {
         background: rgba(33, 37, 41, 0.98);
-        max-width: 100vw;
-    }
-
-    /* Ajustes específicos para navbar en productos */
-    .products-section .navbar,
-    body[class*="productos"] .navbar {
-        padding: 2px 0 !important;
-        width: 100vw;
-    }
-
-    .products-section .navbar-brand,
-    body[class*="productos"] .navbar-brand {
-        font-size: 1.1rem;
-        padding: 0;
-    }
-
-    .products-section .navbar .container,
-    body[class*="productos"] .navbar .container {
-        padding: 0 5px;
-        margin: 0;
-        width: 100%;
-    }
-
-    /* Ajustar todos los elementos que podrían causar scroll horizontal */
-    .row {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        width: 100% !important;
-    }
-
-    .col-12, .col-md-4, .col-lg-4, [class*="col-"] {
-        padding-left: 5px !important;
-        padding-right: 5px !important;
-    }
-
-    /* Header de productos ajustado */
-    body .products-header.py-5.bg-dark {
-        margin-top: 45px !important;
-        padding-top: 1rem !important;
-        width: 100%;
-    }
-
-    /* Resto de los estilos existentes */
-    .navbar .nav-search {
-        width: 100%;
-        margin: 8px 0;
-    }
-
-    .navbar .navbar-collapse {
-        background: rgba(33, 37, 41, 0.98);
-        border-radius: 8px;
-        padding: 10px;
-        margin-top: 5px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        border-radius: 0.5rem;
         position: absolute;
         top: 100%;
         left: 0;
-        right: 0;
-        width: 100vw;
+        width: 100%;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    
+    .nav-search {
+        width: 100%;
+        margin: 1rem 0;
     }
 
-    #productsGrid.row {
-        margin: 0 -5px;
+    .navbar-nav {
+        align-items: center;
+    }
+
+    .nav-link {
+        text-align: center;
+        padding: 0.8rem 1rem !important;
         width: 100%;
     }
 
-    #productsGrid .col-md-4 {
-        width: 50%;
-        padding: 0 5px;
+    /* --- Hero Section --- */
+    .hero h1, .hero-title {
+        font-size: 3.5rem;
     }
 
-    body .mobile-cart {
-        display: flex !important;
+    .hero .lead {
+        font-size: 1.4rem;
+    }
+
+    /* --- Footer --- */
+    .footer .text-md-end {
+        text-align: center !important;
+        margin-top: 1rem;
+    }
+}
+
+/* 
+----------------------------------------------
+Punto de quiebre para Móviles (hasta 768px)
+----------------------------------------------
+*/
+@media (max-width: 767.98px) {
+    /* --- Global --- */
+    html, body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+
+    body {
+        padding-top: 60px; /* Espacio para la navbar fija */
+    }
+
+    .container, .container-fluid {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    /* --- Navbar --- */
+    .navbar {
         position: fixed;
-        top: 10px;
-        right: 55px;
-        z-index: 1031;
-        background: var(--primary-color);
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 10px 0;
+        z-index: 1030;
+    }
+
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+
+    .navbar-toggler {
+        font-size: 1.3rem;
+    }
+
+    /* --- Carrito Móvil --- */
+    .mobile-cart {
+        display: flex !important;
+        position: relative;
+        background: transparent;
         color: white;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        width: auto;
+        height: auto;
+        box-shadow: none;
         cursor: pointer;
+        font-size: 1.4rem;
+        margin-right: 1rem; /* Aumentado el espacio a la derecha */
     }
 
     .mobile-cart i {
-        font-size: 1.2rem;
+        font-size: 1.2rem; /* Ligeramente más grande para mejor visibilidad */
     }
 
     .mobile-cart .cart-badge {
         position: absolute;
-        top: -5px;
-        right: -5px;
+        top: -8px;      /* Ajustado para el nuevo tamaño */
+        right: -8px;    /* Ajustado para el nuevo tamaño */
+        font-size: 0.65rem; /* Tamaño de fuente más pequeño */
+        padding: 0.15rem 0.4rem; /* Padding reducido */
+        min-width: 18px; /* Ancho mínimo */
+        height: 18px;    /* Altura */
         background: white;
         color: var(--primary-color);
-        border: 2px solid var(--primary-color);
-        min-width: 20px;
-        height: 20px;
-        border-radius: 50%;
+        border: 1px solid var(--primary-color); /* Borde más fino */
+        font-weight: bold;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.75rem;
-        font-weight: bold;
-        padding: 2px;
     }
 
-    /* Quitar clase bg-danger del badge en móvil */
-    .mobile-cart .badge.bg-danger {
+    /* 🔵 2️⃣ HERO SECTION REDUCIDO PARA MÓVIL - Liberar espacio para productos */
+    .hero {
+        height: auto;
+        min-height: 15vh; /* Reducido aún más para liberar espacio */
+        padding: 20px 0 30px 0; /* Padding reducido */
+        display: flex;
+        align-items: center;
+        margin-top: 0;
+    }
+    
+    .hero h1, .hero-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero .lead {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .hero .btn-primary, .hero .btn-outline-light {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .hero .d-flex.gap-3 {
+        flex-direction: column;
+    }
+    
+    .hero-background {
+        object-position: 65% center; /* Centra la parte más interesante de la imagen */
+    }
+
+    .hero .col-md-3 {
+        width: 50%;
+    }
+
+    /* 🔵 1️⃣ PRODUCTOS EN FILAS DE 2 COLUMNAS EN MÓVIL */
+    #productsGrid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr; /* 2 columnas iguales */
+        gap: 15px; /* Espacio entre productos */
+        margin-top: 20px;
+    }
+
+    #productsGrid .col-md-4 {
+        width: 100% !important;
+        margin-bottom: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Ajustar tarjetas de producto para móvil */
+    .product-card {
+        font-size: 0.9rem;
+    }
+
+    .product-card .card-title {
+        font-size: 1rem;
+        line-height: 1.2;
+        margin-bottom: 0.5rem;
+    }
+
+    .product-card .card-text {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .product-card .card-body {
+        padding: 0.8rem;
+    }
+
+    /* 🔵 2️⃣ BOTONES SIEMPRE VISIBLES EN MÓVIL */
+    /* Eliminar efectos hover en móvil y mostrar botones siempre */
+    .product-overlay {
+        position: static !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        background: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        height: auto !important;
+        min-height: auto !important;
+        display: block !important;
+    }
+
+    .product-overlay .text-center {
+        background: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .product-overlay .text-center i {
+        display: none !important; /* Ocultar ícono en móvil */
+    }
+
+    .product-overlay .text-center p {
+        display: none !important; /* Ocultar texto explicativo en móvil */
+    }
+
+    .product-overlay .btn {
+        position: static !important;
+        width: 100% !important;
+        margin: 0.5rem 0 0 0 !important;
+        padding: 0.5rem 0.8rem !important;
+        font-size: 0.85rem !important;
+        border-radius: 20px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+    }
+
+    /* Agregar botones directamente en el card-body para móvil */
+    .product-card .card-body::after {
+        content: '';
+        display: block;
+        margin-top: 0.5rem;
+    }
+
+    /* 🔵 4️⃣ AJUSTAR BARRA DE FILTROS PARA MÓVIL */
+    .filter-bar {
+        padding: 0.8rem 1rem !important;
+        margin-bottom: 0.8rem !important; /* Reduced margin */
+        border-radius: 16px !important;
+        flex-wrap: wrap !important; /* Permitir que se acomoden en múltiples filas */
+        gap: 0.5rem !important;
+        overflow-x: visible !important; /* Eliminar scroll horizontal */
+    }
+
+    .filter-bar .d-flex {
+        flex-wrap: wrap !important;
+        width: 100% !important;
+        gap: 0.5rem !important;
+    }
+
+    .filter-bar .search-compact {
+        width: 100% !important;
+        margin-bottom: 0.5rem !important;
+        order: 1;
+    }
+
+    .filter-bar .search-compact .input-group {
+        max-width: 100% !important;
+    }
+
+    .filter-bar .btn-group {
+        flex-shrink: 1 !important;
+        order: 2;
+        flex-wrap: wrap !important;
+        gap: 0.3rem !important;
+    }
+
+    .filter-bar .btn-group .btn,
+    .filter-bar .dropdown-toggle {
+        font-size: 0.85rem !important;
+        padding: 0.4rem 0.8rem !important;
+        border-radius: 16px !important;
+        margin: 0 !important;
+        white-space: nowrap !important;
+    }
+
+    .filter-bar .form-select {
+        font-size: 0.85rem !important;
+        padding: 0.4rem 0.8rem !important;
+        width: auto !important;
+        min-width: 120px !important;
+        order: 3;
+        flex-shrink: 1 !important;
+    }
+
+    .filter-bar .ms-auto {
+        margin-left: 0 !important;
+        width: 100% !important;
+        justify-content: space-between !important;
+    }
+
+/* Ajustar el selector de ordenamiento para evitar superposición */
+.filter-bar .position-relative > #sortBy {
+    padding-right: 2.8rem !important; /* Aumentar padding-right para dar más espacio al ícono */
+}
+
+    /* --- Categorías --- */
+    .category-card {
+        margin-bottom: 1.5rem;
+        min-height: 250px;
+    }
+
+    /* --- Call to Action (CTA) --- */
+    .cta {
+        text-align: center;
+    }
+
+    .cta .text-lg-end {
+        text-align: center !important;
+        margin-top: 1.5rem;
+    }
+
+    /* Ajuste para el texto del CTA en móviles */
+    .cta p.lead {
+        font-size: 1rem; /* Reducir tamaño de fuente del párrafo */
+    }
+
+    /* --- Products Header --- */
+    .products-header h1 {
+        font-size: 2.2rem; /* Ajustar tamaño de fuente del título principal */
+    }
+    .products-header p.lead {
+        font-size: 1rem; /* Ajustar tamaño de fuente del párrafo */
+    }
+    /* 🔵 2️⃣ HEADER DE PRODUCTOS MÁS COMPACTO - Productos visibles apenas se entra */
+    .products-header {
+        margin-top: 0 !important;
+        padding-top: 1rem !important; /* Aún más reducido */
+        padding-bottom: 0.5rem !important; /* Mínimo padding */
+    }
+
+    /* Ocultar o reducir el mensaje de scroll para acercar productos a filtros */
+    .scroll-down-indicator {
+        display: none !important; /* Eliminar completamente para liberar espacio */
+    }
+
+    /* 🔵 3️⃣ MODAL DE DETALLE DE PRODUCTO OPTIMIZADO PARA MÓVIL */
+    #productDetailModal .modal-dialog {
+        margin: 0 !important;
+        max-width: 100% !important;
+        height: 100vh !important;
+    }
+
+    #productDetailModal .modal-content {
+        height: 100vh !important;
+        border-radius: 0 !important;
+        border: none !important;
+    }
+
+    #productDetailModal .modal-body {
+        padding: 1rem !important;
+        overflow-y: auto !important;
+        height: calc(100vh - 120px) !important; /* Restar altura del header y footer */
+    }
+
+    #productDetailModal .row {
+        flex-direction: column !important;
+    }
+
+    #productDetailModal .col-md-6 {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Imagen más pequeña en móvil */
+    #productDetailModal .product-detail-image {
+        margin-bottom: 1rem !important;
+        position: relative;
+    }
+
+    #productDetailModal .product-detail-image img {
+        width: 100% !important;
+        max-width: 280px !important; /* Imagen más pequeña */
+        height: auto !important;
+        max-height: 200px !important; /* Altura máxima reducida */
+        object-fit: contain !important;
+        margin: 0 auto !important;
+        display: block !important;
+    }
+
+    /* Aviso "Toca para ampliar" */
+    #productDetailModal .product-detail-image::after {
+        content: "📱 Toca para ampliar";
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0,0,0,0.7);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    /* Información del producto */
+    #productDetailModal .product-detail-info {
+        padding: 0 !important;
+    }
+
+    #productDetailModal .product-detail-info h3 {
+        font-size: 1.3rem !important;
+        margin-bottom: 0.8rem !important;
+    }
+
+    #productDetailModal #productDetailPrice {
+        font-size: 1.5rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    #productDetailModal #productDetailDescription {
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 1rem !important;
+    }
+
+    /* Selector de sabor en móvil */
+    #productDetailModal #flavorSelectorContainer {
+        margin-bottom: 1rem !important;
+        width: 100% !important;
+    }
+
+    #productDetailModal #flavorSelectorContainer .form-select {
+        width: 100% !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* Selector de cantidad optimizado para móvil */
+    #productDetailModal .quantity-selector {
+        background: #f8f9fa !important;
+        border-radius: 25px !important;
+        padding: 8px 16px !important;
+        margin: 1rem 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        max-width: 200px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    #productDetailModal .quantity-btn {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 1.2rem !important;
+        border-radius: 50% !important;
+        margin: 0 8px !important;
+    }
+
+    #productDetailModal .quantity-input {
+        width: 50px !important;
+        height: 36px !important;
+        font-size: 1.2rem !important;
+        text-align: center !important;
+        border-radius: 8px !important;
+        margin: 0 !important;
+    }
+
+    /* Botón "Añadir al carrito" en móvil */
+    #productDetailModal .btn-lg.w-100 {
+        font-size: 1rem !important;
+        padding: 0.8rem 0 !important;
+        border-radius: 25px !important;
+        margin-top: 1rem !important;
+        position: sticky !important;
+        bottom: 0 !important;
+        z-index: 10 !important;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1) !important;
+    }
+
+    /* 🔵 1️⃣ CARRITO DE COMPRAS OPTIMIZADO PARA MÓVIL - SIN SCROLL HORIZONTAL */
+    /* Modal del carrito adaptado para móvil */
+    #cartModal .modal-dialog {
+        margin: 0 !important;
+        max-width: 100% !important;
+        height: 100vh !important;
+    }
+
+    #cartModal .modal-content {
+        height: 100vh !important;
+        border-radius: 0 !important;
+        border: none !important;
+    }
+
+    #cartModal .modal-body {
+        padding: 1rem !important;
+        overflow-y: auto !important;
+        height: calc(100vh - 200px) !important; /* Espacio para header y footer fijo */
+        position: relative !important;
+    }
+
+    /* Tabla del carrito sin scroll horizontal */
+    .table-responsive {
+        border: none !important;
+        overflow-x: visible !important; /* Eliminar scroll horizontal completamente */
+    }
+
+    /* Cada producto como tarjeta individual */
+    #cartItems tr {
+        width: 100% !important;
+        display: block !important;
+        border: 1px solid #e0e0e0 !important;
+        border-radius: 12px !important;
+        margin-bottom: 1rem !important;
+        padding: 1rem !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
         background: white !important;
     }
 
-    /* Ajustar modales */
-    .modal-dialog {
-        margin: 0 !important;
-        max-width: 100vw !important;
+    #cartItems td {
+        border: none !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0.3rem 0 !important;
+        min-height: 35px !important;
+        width: 100% !important;
     }
+
+    #cartItems td:before {
+        content: attr(data-label) ": " !important;
+        font-weight: 600 !important;
+        color: #555 !important;
+        min-width: 70px !important;
+        text-align: left !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* Producto sin etiqueta */
+    #cartItems td:first-child {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        padding: 0 0 0.8rem 0 !important;
+        margin-bottom: 0.5rem !important;
+        border-bottom: 1px solid #f0f0f0 !important;
+    }
+
+    #cartItems td:first-child:before {
+        display: none !important;
+    }
+
+    /* Imagen del producto más compacta */
+    #cartItems td[data-label="Producto"] img {
+        width: 50px !important;
+        height: 50px !important;
+        margin-right: 12px !important;
+        margin-bottom: 0 !important;
+        border-radius: 8px !important;
+        object-fit: cover !important;
+    }
+
+    /* Texto del producto */
+    #cartItems td[data-label="Producto"] div {
+        flex: 1 !important;
+        font-size: 0.95rem !important;
+        font-weight: 500 !important;
+        line-height: 1.3 !important;
+    }
+
+    /* Controles de cantidad compactos */
+    #cartItems .quantity-controls {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        gap: 6px !important;
+        min-width: 100px !important;
+    }
+
+    #cartItems .quantity-controls .btn {
+        width: 28px !important;
+        height: 28px !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 50% !important;
+        font-size: 0.8rem !important;
+        border: 1px solid #ddd !important;
+    }
+
+    #cartItems .quantity-display {
+        min-width: 25px !important;
+        text-align: center !important;
+        font-size: 0.9rem !important;
+        font-weight: bold !important;
+        margin: 0 3px !important;
+    }
+
+    /* Botón eliminar más pequeño */
+    #cartItems td[data-label="Eliminar"] .btn {
+        padding: 0.2rem 0.4rem !important;
+        font-size: 0.75rem !important;
+        border-radius: 6px !important;
+    }
+
+    /* Precios y subtotales más destacados */
+    #cartItems td[data-label="Precio"],
+    #cartItems td[data-label="Subtotal"] {
+        font-weight: bold !important;
+        color: var(--primary-color) !important;
+        font-size: 0.95rem !important;
+    }
+
+    /* 🔵 1️⃣ BARRA DE RESUMEN FIJA EN CARRITO MÓVIL - Siempre visible */
+    #cartModal .card.cart-summary {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 1050 !important;
+        background: white !important;
+        border-top: 2px solid #e0e0e0 !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.15) !important;
+    }
+
+    /* Espacio adicional en el modal body para la barra fija */
+    #cartModal .modal-body {
+        padding-bottom: 180px !important; /* Espacio para la barra fija */
+    }
+
+    /* Ajustar el resumen para móvil */
+    #cartModal .cart-totals .d-flex {
+        font-size: 0.9rem !important;
+        margin-bottom: 0.3rem !important;
+    }
+
+    #cartModal .cart-totals h5 {
+        font-size: 1.1rem !important;
+        color: var(--primary-color) !important;
+    }
+
+    /* Botón de checkout más prominente */
+    #cartModal #checkoutButton {
+        width: 100% !important;
+        padding: 0.8rem !important;
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        border-radius: 25px !important;
+        margin-top: 0.5rem !important;
+    }
+
+    /* Ocultar sección de cupón en móvil para ahorrar espacio */
+    #cartModal .coupon-section {
+        display: none !important;
+    }
+
+    /* 🔵 3️⃣ CHECKOUT OPTIMIZADO PARA MÓVIL - Menos desplazamiento */
+    .checkout-section {
+        padding: 2rem 0 !important; /* Reducir padding vertical */
+    }
+
+    .checkout-card {
+        margin-bottom: 1.5rem !important; /* Reducir espacio entre tarjetas */
+        padding: 1.5rem !important; /* Reducir padding interno */
+    }
+
+    .checkout-title {
+        font-size: 1.3rem !important; /* Título más pequeño */
+        margin-bottom: 1rem !important; /* Menos margen */
+        padding-bottom: 0.5rem !important; /* Menos padding */
+    }
+
+    /* Formulario más compacto */
+    .checkout-card .row.g-3 {
+        gap: 0.8rem !important; /* Reducir gap entre campos */
+    }
+
+    .checkout-card .form-control,
+    .checkout-card .form-select {
+        padding: 0.6rem 0.8rem !important; /* Campos más pequeños */
+        font-size: 0.9rem !important;
+    }
+
+    .checkout-card .form-label {
+        font-size: 0.85rem !important; /* Labels más pequeñas */
+        margin-bottom: 0.3rem !important; /* Menos espacio */
+    }
+
+    /* Métodos de pago más compactos */
+    .payment-method-card {
+        padding: 0.8rem !important; /* Menos padding */
+        margin-bottom: 0.8rem !important; /* Menos margen */
+    }
+
+    /* Resumen del pedido más compacto */
+    .checkout-summary {
+        padding: 1rem !important; /* Menos padding */
+    }
+
+    .summary-item {
+        padding: 0.5rem 0 !important; /* Menos padding vertical */
+        font-size: 0.9rem !important; /* Texto más pequeño */
+    }
+
+    .summary-total {
+        font-size: 1.1rem !important; /* Total más pequeño */
+        padding-top: 0.8rem !important;
+        margin-top: 0.8rem !important;
+    }
+
+    /* Botón de checkout más compacto */
+    .btn-checkout {
+        padding: 0.8rem 1.5rem !important; /* Menos padding */
+        font-size: 0.95rem !important; /* Texto más pequeño */
+    }
+
+    /* Items del checkout más compactos */
+    .cart-item {
+        padding: 0.6rem 0 !important; /* Menos padding */
+    }
+
+    .cart-product-image {
+        width: 45px !important; /* Imagen más pequeña */
+        height: 45px !important;
+    }
+
+/* Ocultar columnas de Precio, Cantidad y Subtotal en móvil */
+/* Reverted: User requested to keep all info visible */
+/* #cartItems td[data-label="Precio"], */
+/* #cartItems td[data-label="Cantidad"], */
+/* #cartItems td[data-label="Subtotal"] { */
+/*     display: none !important; */
+/* } */
+
+/* Ajustar el estilo del "Producto" para que ocupe el espacio restante */
+#cartItems td[data-label="Producto"] {
+    display: flex !important;
+    flex-direction: column !important; /* Apilar imagen y texto */
+    align-items: flex-start !important; /* Alinear a la izquierda */
+    padding-bottom: 0.8rem !important; /* Añadir un poco de espacio debajo */
+}
+
+/* Ajustar la imagen del producto en el carrito móvil */
+#cartItems td[data-label="Producto"] img {
+    width: 60px !important; /* Un poco más grande que el original */
+    height: 60px !important;
+    margin-right: 15px !important;
+    margin-bottom: 10px !important; /* Espacio entre imagen y texto */
+}
+
+/* Ajustar el contenedor de texto del producto */
+#cartItems td[data-label="Producto"] div {
+    width: 100%;
+}
+
+/* Ajustar el botón de eliminar para que se vea bien */
+#cartItems td[data-label="Eliminar"] {
+    display: flex !important;
+    justify-content: flex-end !important; /* Alinear a la derecha */
+    align-items: center !important;
+    padding-top: 0.5rem !important;
+}
+
+/* Asegurar que el botón de eliminar esté bien posicionado */
+#cartItems td[data-label="Eliminar"] .btn {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.8rem !important;
+}
+
+    /* Asegurar que el subtotal no se monte sobre el número */
+    #cartItems td[data-label="Subtotal"] {
+        font-weight: bold !important;
+        color: var(--primary-color) !important;
+        font-size: 1rem !important;
+    }
+
+    /* Resumen del carrito sin scroll horizontal */
+    .cart-summary .row {
+        flex-direction: column !important;
+    }
+
+    .cart-summary .col-md-6 {
+        width: 100% !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .cart-totals {
+        width: 100% !important;
+    }
+
+    .cart-totals .d-flex {
+        flex-wrap: nowrap !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    /* --- Footer --- */
+    .footer {
+        text-align: center;
+    }
+
+    .footer-brand, .social-links {
+        justify-content: center;
+    }
+
+    .footer-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .footer .text-md-start {
+        text-align: center !important;
+    }
+
+    /* --- Tabla del Carrito Responsiva --- */
+    .table-responsive {
+        border: none;
+        overflow-x: visible !important; /* Eliminar scroll horizontal */
+    }
+
+    #cartItems table, 
+    #cartItems thead, 
+    #cartItems tbody, 
+    #cartItems th, 
+    #cartItems td, 
+    #cartItems tr {
+        display: block;
+    }
+
+    #cartItems thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    /* --- Modales --- */
+    .modal-dialog {
+        margin: 0;
+        max-width: 100%;
+        min-height: 100vh;
+    }
+
+/* Sticky header for cart on mobile */
+.table-responsive { /* Make the container relative for sticky positioning */
+    position: relative;
+}
+.table-responsive #cartItems thead {
+    position: sticky;
+    top: 0; /* Stick to the top of the modal body */
+    z-index: 10;
+    background-color: #f8f9fa; /* Match background */
+    border-bottom: 1px solid #ddd; /* Add a separator */
+}
+
+/* Revert tr and td display to table-like for proper layout */
+#cartItems tr {
+    display: table-row !important; /* Revert to table row */
+    width: auto !important; /* Auto width for table row */
+    border: none !important; /* Remove block-specific borders */
+    border-radius: 0 !important; /* Remove block-specific radius */
+    margin-bottom: 0 !important; /* Remove block-specific margin */
+    padding: 0 !important; /* Remove block-specific padding */
+    box-shadow: none !important; /* Remove block-specific shadow */
+}
+
+#cartItems td {
+    display: table-cell !important; /* Revert to table cell */
+    vertical-align: middle !important; /* Align content vertically */
+    padding: 0.8rem 0.5rem !important; /* Adjust padding */
+    min-height: auto !important; /* Auto height */
+    white-space: normal !important; /* Allow text wrapping */
+    width: auto !important; /* Auto width for table cell */
+}
+
+/* Ensure all data is visible and styled correctly */
+/* Re-enable label for "Producto" */
+#cartItems td:first-child:before {
+    display: inline !important; /* Make label visible again */
+}
+
+/* Adjust product cell for stacking image and text */
+#cartItems td[data-label="Producto"] {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding-bottom: 0.8rem !important;
+}
+
+#cartItems td[data-label="Producto"] img {
+    width: 60px !important;
+    height: 60px !important;
+    margin-right: 15px !important;
+    margin-bottom: 10px !important;
+}
+
+/* Ensure other cells are visible and styled */
+#cartItems td[data-label="Precio"],
+#cartItems td[data-label="Cantidad"],
+#cartItems td[data-label="Subtotal"] {
+    display: table-cell !important; /* Make them visible again */
+    text-align: right !important; /* Align numbers to the right */
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
+
+/* Adjust quantity controls for mobile */
+#cartItems .quantity-controls {
+    justify-content: center !important; /* Center controls */
+    min-width: 100px !important;
+}
+
+/* Adjust delete button */
+#cartItems td[data-label="Eliminar"] {
+    display: table-cell !important;
+    text-align: center !important;
+    padding-top: 0.5rem !important;
+}
+
+/* Sticky header for cart on mobile */
+.table-responsive { /* Make the container relative for sticky positioning */
+    position: relative;
+}
+.table-responsive #cartItems thead {
+    position: sticky;
+    top: 0; /* Stick to the top of the modal body */
+    z-index: 10;
+    background-color: #f8f9fa; /* Match background */
+    border-bottom: 1px solid #ddd; /* Add a separator */
+}
+
+/* Revert tr and td display to table-like for proper layout */
+#cartItems tr {
+    display: table-row !important; /* Revert to table row */
+    width: auto !important; /* Auto width for table row */
+    border: none !important; /* Remove block-specific borders */
+    border-radius: 0 !important; /* Remove block-specific radius */
+    margin-bottom: 0 !important; /* Remove block-specific margin */
+    padding: 0 !important; /* Remove block-specific padding */
+    box-shadow: none !important; /* Remove block-specific shadow */
+}
+
+#cartItems td {
+    display: table-cell !important; /* Revert to table cell */
+    vertical-align: middle !important; /* Align content vertically */
+    padding: 0.8rem 0.5rem !important; /* Adjust padding */
+    min-height: auto !important; /* Auto height */
+    white-space: normal !important; /* Allow text wrapping */
+    width: auto !important; /* Auto width for table cell */
+}
+
+/* Ensure all data is visible and styled correctly */
+/* Re-enable label for "Producto" */
+#cartItems td:first-child:before {
+    display: inline !important; /* Make label visible again */
+}
+
+/* Adjust product cell for stacking image and text */
+#cartItems td[data-label="Producto"] {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding-bottom: 0.8rem !important;
+}
+
+#cartItems td[data-label="Producto"] img {
+    width: 60px !important;
+    height: 60px !important;
+    margin-right: 15px !important;
+    margin-bottom: 10px !important;
+}
+
+/* Ensure other cells are visible and styled */
+#cartItems td[data-label="Precio"],
+#cartItems td[data-label="Cantidad"],
+#cartItems td[data-label="Subtotal"] {
+    display: table-cell !important; /* Make them visible again */
+    text-align: right !important; /* Align numbers to the right */
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
+
+/* Adjust quantity controls for mobile */
+#cartItems .quantity-controls {
+    justify-content: center !important; /* Center controls */
+    min-width: 100px !important;
+}
+
+/* Adjust delete button */
+#cartItems td[data-label="Eliminar"] {
+    display: table-cell !important;
+    text-align: center !important;
+    padding-top: 0.5rem !important;
+}
+
+/* Fixed summary bar for cart on mobile */
+.modal-body { /* Ensure modal-body is the reference for sticky positioning */
+    position: relative; /* Needed for sticky positioning of children */
+}
+
+.card.cart-summary {
+    position: sticky;
+    bottom: 0; /* Stick to the bottom of the modal body */
+    z-index: 10;
+    background-color: #f8f9fa; /* Match background */
+    border-top: 1px solid #ddd; /* Add a separator */
+    padding-top: 1rem; /* Add some padding */
+    padding-bottom: 1rem; /* Add some padding */
+    margin-top: 1rem; /* Add space above summary */
+}
+
+/* Add padding to the bottom of the product list to prevent content from being hidden by the fixed summary */
+#cartItems {
+    padding-bottom: 150px; /* Adjust this value based on the height of the summary bar */
+}
+
+/* Ensure the header remains sticky at the top */
+.table-responsive #cartItems thead {
+    position: sticky;
+    top: 0; /* Stick to the top of the modal body */
+    z-index: 10;
+    background-color: #f8f9fa; /* Match background */
+    border-bottom: 1px solid #ddd; /* Add a separator */
+}
+
+/* Sticky footer for cart summary */
+.modal-body {
+    position: relative; /* Needed for sticky positioning of children */
+    padding-bottom: 150px; /* Add padding to the bottom to prevent content from being hidden by the sticky footer */
+}
+
+.card.cart-summary {
+    position: sticky;
+    bottom: 0; /* Stick to the bottom of the modal body */
+    z-index: 10;
+    background-color: #f8f9fa; /* Match background */
+    border-top: 1px solid #ddd; /* Add a separator */
+    padding-top: 1rem; /* Add some padding */
+    padding-bottom: 1rem; /* Add some padding */
+    margin-top: 1rem; /* Add space above summary */
+}
+
+/* Ensure the header remains sticky at the top */
+.table-responsive #cartItems thead {
+    position: sticky;
+    top: 0; /* Stick to the top of the modal body */
+    z-index: 10;
+    background-color: #f8f9fa; /* Match background */
+    border-bottom: 1px solid #ddd; /* Add a separator */
+}
 
     .modal-content {
-        width: 100vw;
+        min-height: 100vh;
+        border-radius: 0;
+        border: none;
     }
 
-    /* Ajustar cualquier elemento que pueda causar overflow */
-    img {
-        max-width: 100%;
-        height: auto;
+    .modal-body {
+        overflow-y: auto;
     }
 
-    table {
-        max-width: 100%;
-        display: block;
-        overflow-x: auto;
+    /* --- Lightbox --- */
+    .lightbox-content {
+        max-width: 95vw;
+        max-height: 80vh;
+    }
+    .lightbox-close {
+        top: 15px;
+        right: 20px;
+        font-size: 2rem;
+    }
+}
+
+/* 
+----------------------------------------------
+Punto de quiebre para Móviles Pequeños (hasta 576px)
+----------------------------------------------
+*/
+@media (max-width: 575.98px) {
+    .hero h1, .hero-title {
+        font-size: 2.2rem;
     }
 
-    .btn {
-        min-height: 44px;
+    .hero .lead {
+        font-size: 1rem;
     }
 
-    input[type="text"],
-    input[type="number"],
-    input[type="email"],
-    select {
-        font-size: 16px !important;
+    .footer .col-md-2 {
+        width: 50%;
     }
 
-    /* Ajustes para el modal y backdrop */
-    .modal-backdrop {
-        opacity: 0.5;
-    }
-
-    .modal-backdrop.fade {
-        opacity: 0 !important;
-    }
-
-    .modal-backdrop.show {
-        opacity: 0.5 !important;
-    }
-
-    body.modal-open {
-        overflow: hidden !important;
-        padding-right: 0 !important;
+    /* Ajuste para íconos de categoría en móviles pequeños */
+    .category-icon {
+        font-size: 3rem; /* Reducir tamaño del ícono */
     }
 }
