@@ -575,8 +575,13 @@ function applyFilters() {
         const category = activeCategoryFilter.getAttribute('data-filter');
         if (category !== 'todos') {
             if (category === 'suplementos') {
+                // Filtra por la subcategoría 'suplementos'
                 filteredProducts = filteredProducts.filter(p => p.subcategory === 'suplementos');
+            } else if (category === 'accesorios') {
+                // Filtra por la categoría 'accesorios'
+                filteredProducts = filteredProducts.filter(p => p.category === 'accesorios');
             } else {
+                // Filtro para otras categorías como 'proteinas', 'creatinas', etc.
                 filteredProducts = filteredProducts.filter(p => p.category === category);
             }
         }
@@ -778,6 +783,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const prod = products.find(p => p.id == id);
             if (prod) {
                 setTimeout(() => showProductDetail(prod), 300);
+            }
+        }
+
+        const category = params.get('categoria');
+        if (category) {
+            const filterButton = document.querySelector(`[data-filter="${category}"]`);
+            if (filterButton) {
+                // Quitar la clase 'active' de cualquier otro botón
+                document.querySelectorAll('[data-filter]').forEach(btn => btn.classList.remove('active'));
+                // Añadir 'active' al botón correcto y aplicar filtros
+                filterButton.classList.add('active');
+                applyFilters();
             }
         }
     }
