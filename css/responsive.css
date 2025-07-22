@@ -828,86 +828,21 @@ Punto de quiebre para Móviles (hasta 768px)
         min-height: 100vh;
     }
 
-/* Sticky header for cart on mobile */
-.table-responsive { /* Make the container relative for sticky positioning */
-    position: relative;
-}
-.table-responsive #cartItems thead {
-    position: sticky;
-    top: 0; /* Stick to the top of the modal body */
-    z-index: 10;
-    background-color: #f8f9fa; /* Match background */
-    border-bottom: 1px solid #ddd; /* Add a separator */
-}
-
-
-/* Sticky header for cart on mobile */
-.table-responsive { /* Make the container relative for sticky positioning */
-    position: relative;
-}
-.table-responsive #cartItems thead {
-    position: sticky;
-    top: 0; /* Stick to the top of the modal body */
-    z-index: 10;
-    background-color: #f8f9fa; /* Match background */
-    border-bottom: 1px solid #ddd; /* Add a separator */
-}
-
-
-/* Fixed summary bar for cart on mobile */
-.modal-body { /* Ensure modal-body is the reference for sticky positioning */
-    position: relative; /* Needed for sticky positioning of children */
-}
-
-.card.cart-summary {
-    position: sticky;
-    bottom: 0; /* Stick to the bottom of the modal body */
-    z-index: 10;
-    background-color: #f8f9fa; /* Match background */
-    border-top: 1px solid #ddd; /* Add a separator */
-    padding-top: 1rem; /* Add some padding */
-    padding-bottom: 1rem; /* Add some padding */
-    margin-top: 1rem; /* Add space above summary */
-}
-
-/* Add padding to the bottom of the product list to prevent content from being hidden by the fixed summary */
-#cartItems {
-    padding-bottom: 150px; /* Adjust this value based on the height of the summary bar */
-}
-
-/* Ensure the header remains sticky at the top */
-.table-responsive #cartItems thead {
-    position: sticky;
-    top: 0; /* Stick to the top of the modal body */
-    z-index: 10;
-    background-color: #f8f9fa; /* Match background */
-    border-bottom: 1px solid #ddd; /* Add a separator */
-}
-
 /* Sticky footer for cart summary */
-.modal-body {
+#cartModal .modal-body {
     position: relative; /* Needed for sticky positioning of children */
-    padding-bottom: 150px; /* Add padding to the bottom to prevent content from being hidden by the sticky footer */
+    padding-bottom: 200px; /* Add padding to the bottom to prevent content from being hidden by the sticky footer */
 }
 
 .card.cart-summary {
     position: sticky;
-    bottom: 0; /* Stick to the bottom of the modal body */
+    bottom: 20px; /* Stick to the bottom of the modal body */
     z-index: 10;
     background-color: #f8f9fa; /* Match background */
     border-top: 1px solid #ddd; /* Add a separator */
     padding-top: 1rem; /* Add some padding */
     padding-bottom: 1rem; /* Add some padding */
     margin-top: 1rem; /* Add space above summary */
-}
-
-/* Ensure the header remains sticky at the top */
-.table-responsive #cartItems thead {
-    position: sticky;
-    top: 0; /* Stick to the top of the modal body */
-    z-index: 10;
-    background-color: #f8f9fa; /* Match background */
-    border-bottom: 1px solid #ddd; /* Add a separator */
 }
 
     .modal-content {
