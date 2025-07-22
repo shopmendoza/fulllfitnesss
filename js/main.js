@@ -6,7 +6,7 @@ const products = [
     {
         id: 1,
         name: "Caramañola 500 ML",
-        price: 8000.00,
+        price: 7500.00,
         category: "accesorios",
         subcategory: "accesorios",
         image: "../images/productos/Caramañola 500 ML - NUTREMAX.jpg",
@@ -15,7 +15,7 @@ const products = [
     {
         id: 2,
         name: "Shaker S Negro - GOLD NUTRITION",
-        price: 6500.00,
+        price: 6000.00,
         category: "accesorios",
         subcategory: "accesorios",
         image: "../images/productos/Shaker S Negro - GOLD NUTRITION.jpg",
@@ -24,7 +24,7 @@ const products = [
     {
         id: 3,
         name: "Creatine 300 G - GOLD NUTRITION",
-        price: 31500.00,
+        price: 31000.00,
         category: "creatinas",
         subcategory: "suplementos",
         image: "../images/productos/Creatine 300 G - GOLD NUTRITION.jpg",
@@ -33,7 +33,7 @@ const products = [
     {
         id: 4,
         name: "Whey Protein 2 LB - ULTRA TECH",
-        price: 45000.00,
+        price: 44500.00,
         category: "proteinas",
         subcategory: "suplementos",
         image: "../images/productos/Whey Protein 2 LB - ULTRA TECH.jpg",
@@ -44,7 +44,7 @@ const products = [
     {
         id: 5,
         name: "Creatine Monohydrate 309 G - BSN",
-        price: 37500.00,
+        price: 37000.00,
         category: "creatinas",
         subcategory: "suplementos",
         image: "../images/productos/Creatine Monohydrate 309 G - BSN.jpg",
@@ -64,7 +64,7 @@ const products = [
     {
         id: 7,
         name: "Creatina Micronizada 300 G - ENA",
-        price: 30500.00,
+        price: 30000.00,
         category: "creatinas",
         subcategory: "suplementos",
         image: "../images/productos/Creatina Micronizada 300 G.jpg",
@@ -73,7 +73,7 @@ const products = [
     {
         id: 8,
         name: "Creatina 150gr - Body Advance",
-        price: 13000.00,
+        price: 12800.00,
         category: "creatinas",
         subcategory: "suplementos",
         image: "../images/productos/creatina body adbance.jpg",
@@ -82,7 +82,7 @@ const products = [
     {
         id: 9,
         name: "WHEY PROTEIN x907g - Body Advance",
-        price: 23500.00,
+        price: 23000.00,
         category: "proteinas",
         subcategory: "suplementos",
         image: "../images/productos/WHEY PROTEIN x907g - Body Advance.jpg",
