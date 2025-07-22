@@ -252,30 +252,58 @@ Punto de quiebre para Móviles (hasta 768px)
         margin-top: 0.5rem;
     }
 
-    /* 🔵 4️⃣ AJUSTAR BARRA DE FILTROS PARA MÓVIL */
+    /* ============================================= */
+    /* 🔹 1. BARRA DE FILTROS Y BÚSQUEDA (MÓVIL)    */
+    /* ============================================= */
+
+    /* Contenedor principal de la barra de filtros */
     .filter-bar {
-        padding: 0.8rem 1rem !important;
-        margin-bottom: 0.8rem !important; /* Reduced margin */
-        border-radius: 16px !important;
-        flex-wrap: wrap !important; /* Permitir que se acomoden en múltiples filas */
-        gap: 0.5rem !important;
-        overflow-x: visible !important; /* Eliminar scroll horizontal */
+        padding: 1rem !important;
+        margin-bottom: 1rem !important;
+        border-radius: 12px !important; /* Bordes más suaves */
+        gap: 0.8rem !important; /* Espacio entre elementos */
+        overflow-x: visible !important;
     }
 
     .filter-bar .d-flex {
-        flex-wrap: wrap !important;
+        flex-direction: column !important; /* Apilar verticalmente en móvil */
         width: 100% !important;
-        gap: 0.5rem !important;
+        gap: 0.8rem !important;
     }
 
+    /* Estilo mejorado para la barra de búsqueda */
     .filter-bar .search-compact {
         width: 100% !important;
-        margin-bottom: 0.5rem !important;
-        order: 1;
+        order: 1; /* La búsqueda siempre primero */
     }
 
     .filter-bar .search-compact .input-group {
-        max-width: 100% !important;
+        border: 1px solid #dee2e6;
+        border-radius: 25px; /* Bordes redondeados */
+        padding: 0.2rem;
+        background-color: #fff;
+        transition: box-shadow 0.2s ease-in-out;
+    }
+
+    .filter-bar .search-compact .input-group:focus-within {
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Efecto de foco */
+        border-color: #80bdff;
+    }
+
+    .filter-bar .search-compact .form-control {
+        border: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        padding-left: 1rem;
+    }
+
+    .filter-bar .search-compact .btn {
+        border-radius: 50% !important; /* Botón de búsqueda circular */
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .filter-bar .btn-group {
@@ -491,184 +519,177 @@ Punto de quiebre para Móviles (hasta 768px)
         box-shadow: 0 -2px 10px rgba(0,0,0,0.1) !important;
     }
 
-    /* 🔵 1️⃣ CARRITO DE COMPRAS OPTIMIZADO PARA MÓVIL - SIN SCROLL HORIZONTAL */
-    /* Modal del carrito adaptado para móvil */
+    /* ============================================= */
+    /* 🔹 2. CARRITO DE COMPRAS (MÓVIL)             */
+    /* ============================================= */
+
+    /* --- Estructura General del Modal --- */
     #cartModal .modal-dialog {
-        margin: 0 !important;
-        max-width: 100% !important;
-        height: 100vh !important;
+        margin: 0;
+        max-width: 100%;
+        height: 100vh;
     }
 
     #cartModal .modal-content {
-        height: 100vh !important;
-        border-radius: 0 !important;
-        border: none !important;
+        height: 100vh;
+        border-radius: 0;
+        border: none;
+        display: flex;
+        flex-direction: column; /* Asegura el layout vertical */
     }
 
+    #cartModal .modal-header {
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    /* --- Cuerpo del Carrito con Scroll --- */
     #cartModal .modal-body {
-        padding: 1rem !important;
-        overflow-y: auto !important;
-        height: calc(100vh - 200px) !important; /* Espacio para header y footer fijo */
-        position: relative !important;
+        padding: 1rem;
+        overflow-y: auto;
+        flex-grow: 1; /* Permite que el cuerpo ocupe el espacio disponible */
+        background-color: #f8f9fa; /* Fondo sutil para diferenciar */
     }
 
-    /* Tabla del carrito sin scroll horizontal */
-    .table-responsive {
-        border: none !important;
-        overflow-x: visible !important; /* Eliminar scroll horizontal completamente */
+    /* --- Ocultar Tabla Original en Móvil --- */
+    #cartModal .table-responsive {
+        overflow-x: hidden !important;
+    }
+    #cartModal table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    #cartModal thead {
+        display: none;
     }
 
-    /* Cada producto como tarjeta individual */
+    /* --- Diseño de Tarjeta por Producto (NUEVO - Full Width) --- */
     #cartItems tr {
-        width: 100% !important;
-        display: block !important;
-        border: 1px solid #e0e0e0 !important;
-        border-radius: 12px !important;
-        margin-bottom: 1rem !important;
-        padding: 1rem !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
-        background: white !important;
+        display: block; /* Cambiado de grid a block */
+        background: #fff;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
 
     #cartItems td {
-        border: none !important;
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        padding: 0.3rem 0 !important;
-        min-height: 35px !important;
-        width: 100% !important;
+        display: flex; /* Usar flex para alinear items */
+        flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
+        justify-content: flex-start; /* Alinear al inicio */
+        align-items: center;
+        padding: 0.75rem 0; /* Espaciado vertical */
+        border-bottom: 1px solid #f1f1f1; /* Separador sutil */
+        width: 100%;
     }
 
-    #cartItems td:before {
-        content: attr(data-label) ": " !important;
-        font-weight: 600 !important;
-        color: #555 !important;
-        min-width: 70px !important;
-        text-align: left !important;
-        font-size: 0.9rem !important;
+    #cartItems tr td:last-child {
+        border-bottom: none; /* No border on the last item */
     }
 
-    /* Producto sin etiqueta */
-    #cartItems td:first-child {
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        padding: 0 0 0.8rem 0 !important;
-        margin-bottom: 0.5rem !important;
-        border-bottom: 1px solid #f0f0f0 !important;
+    /* --- Ocultar el label de "Producto" y mostrarlo como un bloque --- */
+    #cartItems td[data-label="Producto"] {
+        flex-direction: row; /* Imagen y texto en una fila */
+        align-items: center;
+        padding-bottom: 1rem; /* Más espacio debajo del producto */
     }
 
-    #cartItems td:first-child:before {
-        display: none !important;
+    #cartItems td[data-label="Producto"]::before {
+        display: none; /* Ocultar el label "Producto" */
     }
 
-    /* Imagen del producto más compacta */
-    #cartItems td[data-label="Producto"] img {
-        width: 50px !important;
-        height: 50px !important;
-        margin-right: 12px !important;
-        margin-bottom: 0 !important;
-        border-radius: 8px !important;
-        object-fit: cover !important;
+    #cartItems td[data-label="Producto"] .d-flex {
+        width: 100%;
     }
 
-    /* Texto del producto */
-    #cartItems td[data-label="Producto"] div {
-        flex: 1 !important;
-        font-size: 0.95rem !important;
-        font-weight: 500 !important;
-        line-height: 1.3 !important;
+    /* --- Estilos para los demás labels y valores --- */
+    #cartItems td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #495057;
+        font-size: 0.9rem;
     }
 
-    /* Controles de cantidad compactos */
-    #cartItems .quantity-controls {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: flex-end !important;
-        gap: 6px !important;
-        min-width: 100px !important;
+    #cartItems td[data-label="Precio"] span,
+    #cartItems td[data-label="Subtotal"] span {
+        font-weight: 700;
+        font-size: 1rem;
+        color: #0d6efd;
+        white-space: normal !important; /* Permitir que el precio se ajuste */
+        margin-left: auto; /* Empujar el valor a la derecha */
+        padding-left: 1rem; /* Añadir espacio entre la etiqueta y el valor */
+        text-align: right; /* Alinear el texto a la derecha */
     }
 
-    #cartItems .quantity-controls .btn {
-        width: 28px !important;
-        height: 28px !important;
-        padding: 0 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        border-radius: 50% !important;
-        font-size: 0.8rem !important;
-        border: 1px solid #ddd !important;
+    #cartItems td[data-label="Cantidad"] .quantity-controls {
+        flex-grow: 1;
+        justify-content: flex-end; /* Alinear controles a la derecha */
     }
 
-    #cartItems .quantity-display {
-        min-width: 25px !important;
-        text-align: center !important;
-        font-size: 0.9rem !important;
-        font-weight: bold !important;
-        margin: 0 3px !important;
+    #cartItems td[data-label="Eliminar"] {
+        justify-content: flex-end; /* Alinear botón a la derecha */
+        padding: 0.2rem 0;
     }
 
-    /* Botón eliminar más pequeño */
-    #cartItems td[data-label="Eliminar"] .btn {
-        padding: 0.2rem 0.4rem !important;
-        font-size: 0.75rem !important;
-        border-radius: 6px !important;
+    #cartItems td[data-label="Eliminar"]::before {
+        display: none; /* Ocultar label, el botón es suficiente */
     }
 
-    /* Precios y subtotales más destacados */
-    #cartItems td[data-label="Precio"],
-    #cartItems td[data-label="Subtotal"] {
-        font-weight: bold !important;
-        color: var(--primary-color) !important;
-        font-size: 0.95rem !important;
+    #cartItems .remove-btn {
+        background-color: transparent;
+        color: #dc3545;
+        border: none;
+        font-size: 1.2rem;
+        padding: 0.2rem 0.5rem;
     }
 
-    /* 🔵 1️⃣ BARRA DE RESUMEN FIJA EN CARRITO MÓVIL - Siempre visible */
-    #cartModal .card.cart-summary {
-        position: fixed !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        z-index: 1050 !important;
-        background: white !important;
-        border-top: 2px solid #e0e0e0 !important;
-        border-radius: 0 !important;
-        margin: 0 !important;
-        padding: 1rem !important;
-        box-shadow: 0 -4px 12px rgba(0,0,0,0.15) !important;
+    /* --- Footer Fijo con Resumen y Acciones --- */
+    #cartModal .modal-footer {
+        position: sticky;
+        bottom: 0;
+        width: 100%;
+        background: #fff;
+        border-top: 1px solid #dee2e6;
+        box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+        padding: 1rem;
+        z-index: 1055;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 
-    /* Espacio adicional en el modal body para la barra fija */
-    #cartModal .modal-body {
-        padding-bottom: 180px !important; /* Espacio para la barra fija */
+    /* Contenedor para el total */
+    .cart-total-summary {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
     }
 
-    /* Ajustar el resumen para móvil */
-    #cartModal .cart-totals .d-flex {
-        font-size: 0.9rem !important;
-        margin-bottom: 0.3rem !important;
+    .cart-total-summary span {
+        font-size: 1rem;
+        color: #495057;
     }
 
-    #cartModal .cart-totals h5 {
-        font-size: 1.1rem !important;
-        color: var(--primary-color) !important;
+    .cart-total-summary h4 {
+        font-size: 1.5rem;
+        color: #0d6efd;
+        margin: 0;
     }
 
-    /* Botón de checkout más prominente */
-    #cartModal #checkoutButton {
-        width: 100% !important;
-        padding: 0.8rem !important;
-        font-size: 1rem !important;
-        font-weight: 600 !important;
-        border-radius: 25px !important;
-        margin-top: 0.5rem !important;
+    /* Contenedor para los botones */
+    .cart-footer-buttons {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
     }
 
-    /* Ocultar sección de cupón en móvil para ahorrar espacio */
-    #cartModal .coupon-section {
-        display: none !important;
+    .cart-footer-buttons .btn {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 0.9rem;
+        font-weight: 600;
     }
 
     /* 🔵 3️⃣ CHECKOUT OPTIMIZADO PARA MÓVIL - Menos desplazamiento */
@@ -739,56 +760,6 @@ Punto de quiebre para Móviles (hasta 768px)
     .cart-product-image {
         width: 45px !important; /* Imagen más pequeña */
         height: 45px !important;
-    }
-
-/* Ocultar columnas de Precio, Cantidad y Subtotal en móvil */
-/* Reverted: User requested to keep all info visible */
-/* #cartItems td[data-label="Precio"], */
-/* #cartItems td[data-label="Cantidad"], */
-/* #cartItems td[data-label="Subtotal"] { */
-/*     display: none !important; */
-/* } */
-
-/* Ajustar el estilo del "Producto" para que ocupe el espacio restante */
-#cartItems td[data-label="Producto"] {
-    display: flex !important;
-    flex-direction: column !important; /* Apilar imagen y texto */
-    align-items: flex-start !important; /* Alinear a la izquierda */
-    padding-bottom: 0.8rem !important; /* Añadir un poco de espacio debajo */
-}
-
-/* Ajustar la imagen del producto en el carrito móvil */
-#cartItems td[data-label="Producto"] img {
-    width: 60px !important; /* Un poco más grande que el original */
-    height: 60px !important;
-    margin-right: 15px !important;
-    margin-bottom: 10px !important; /* Espacio entre imagen y texto */
-}
-
-/* Ajustar el contenedor de texto del producto */
-#cartItems td[data-label="Producto"] div {
-    width: 100%;
-}
-
-/* Ajustar el botón de eliminar para que se vea bien */
-#cartItems td[data-label="Eliminar"] {
-    display: flex !important;
-    justify-content: flex-end !important; /* Alinear a la derecha */
-    align-items: center !important;
-    padding-top: 0.5rem !important;
-}
-
-/* Asegurar que el botón de eliminar esté bien posicionado */
-#cartItems td[data-label="Eliminar"] .btn {
-    padding: 0.25rem 0.5rem !important;
-    font-size: 0.8rem !important;
-}
-
-    /* Asegurar que el subtotal no se monte sobre el número */
-    #cartItems td[data-label="Subtotal"] {
-        font-weight: bold !important;
-        color: var(--primary-color) !important;
-        font-size: 1rem !important;
     }
 
     /* Resumen del carrito sin scroll horizontal */
@@ -869,69 +840,6 @@ Punto de quiebre para Móviles (hasta 768px)
     border-bottom: 1px solid #ddd; /* Add a separator */
 }
 
-/* Revert tr and td display to table-like for proper layout */
-#cartItems tr {
-    display: table-row !important; /* Revert to table row */
-    width: auto !important; /* Auto width for table row */
-    border: none !important; /* Remove block-specific borders */
-    border-radius: 0 !important; /* Remove block-specific radius */
-    margin-bottom: 0 !important; /* Remove block-specific margin */
-    padding: 0 !important; /* Remove block-specific padding */
-    box-shadow: none !important; /* Remove block-specific shadow */
-}
-
-#cartItems td {
-    display: table-cell !important; /* Revert to table cell */
-    vertical-align: middle !important; /* Align content vertically */
-    padding: 0.8rem 0.5rem !important; /* Adjust padding */
-    min-height: auto !important; /* Auto height */
-    white-space: normal !important; /* Allow text wrapping */
-    width: auto !important; /* Auto width for table cell */
-}
-
-/* Ensure all data is visible and styled correctly */
-/* Re-enable label for "Producto" */
-#cartItems td:first-child:before {
-    display: inline !important; /* Make label visible again */
-}
-
-/* Adjust product cell for stacking image and text */
-#cartItems td[data-label="Producto"] {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    padding-bottom: 0.8rem !important;
-}
-
-#cartItems td[data-label="Producto"] img {
-    width: 60px !important;
-    height: 60px !important;
-    margin-right: 15px !important;
-    margin-bottom: 10px !important;
-}
-
-/* Ensure other cells are visible and styled */
-#cartItems td[data-label="Precio"],
-#cartItems td[data-label="Cantidad"],
-#cartItems td[data-label="Subtotal"] {
-    display: table-cell !important; /* Make them visible again */
-    text-align: right !important; /* Align numbers to the right */
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-}
-
-/* Adjust quantity controls for mobile */
-#cartItems .quantity-controls {
-    justify-content: center !important; /* Center controls */
-    min-width: 100px !important;
-}
-
-/* Adjust delete button */
-#cartItems td[data-label="Eliminar"] {
-    display: table-cell !important;
-    text-align: center !important;
-    padding-top: 0.5rem !important;
-}
 
 /* Sticky header for cart on mobile */
 .table-responsive { /* Make the container relative for sticky positioning */
@@ -945,69 +853,6 @@ Punto de quiebre para Móviles (hasta 768px)
     border-bottom: 1px solid #ddd; /* Add a separator */
 }
 
-/* Revert tr and td display to table-like for proper layout */
-#cartItems tr {
-    display: table-row !important; /* Revert to table row */
-    width: auto !important; /* Auto width for table row */
-    border: none !important; /* Remove block-specific borders */
-    border-radius: 0 !important; /* Remove block-specific radius */
-    margin-bottom: 0 !important; /* Remove block-specific margin */
-    padding: 0 !important; /* Remove block-specific padding */
-    box-shadow: none !important; /* Remove block-specific shadow */
-}
-
-#cartItems td {
-    display: table-cell !important; /* Revert to table cell */
-    vertical-align: middle !important; /* Align content vertically */
-    padding: 0.8rem 0.5rem !important; /* Adjust padding */
-    min-height: auto !important; /* Auto height */
-    white-space: normal !important; /* Allow text wrapping */
-    width: auto !important; /* Auto width for table cell */
-}
-
-/* Ensure all data is visible and styled correctly */
-/* Re-enable label for "Producto" */
-#cartItems td:first-child:before {
-    display: inline !important; /* Make label visible again */
-}
-
-/* Adjust product cell for stacking image and text */
-#cartItems td[data-label="Producto"] {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    padding-bottom: 0.8rem !important;
-}
-
-#cartItems td[data-label="Producto"] img {
-    width: 60px !important;
-    height: 60px !important;
-    margin-right: 15px !important;
-    margin-bottom: 10px !important;
-}
-
-/* Ensure other cells are visible and styled */
-#cartItems td[data-label="Precio"],
-#cartItems td[data-label="Cantidad"],
-#cartItems td[data-label="Subtotal"] {
-    display: table-cell !important; /* Make them visible again */
-    text-align: right !important; /* Align numbers to the right */
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-}
-
-/* Adjust quantity controls for mobile */
-#cartItems .quantity-controls {
-    justify-content: center !important; /* Center controls */
-    min-width: 100px !important;
-}
-
-/* Adjust delete button */
-#cartItems td[data-label="Eliminar"] {
-    display: table-cell !important;
-    text-align: center !important;
-    padding-top: 0.5rem !important;
-}
 
 /* Fixed summary bar for cart on mobile */
 .modal-body { /* Ensure modal-body is the reference for sticky positioning */

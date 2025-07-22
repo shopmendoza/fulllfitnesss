@@ -238,7 +238,7 @@ function updateCart() {
                         </div>
                     </div>
                 </td>
-                <td data-label="Precio"><span style="white-space:nowrap;">$${item.price.toLocaleString('es-AR')} ARS</span></td>
+                <td data-label="Precio"><span>$${item.price.toLocaleString('es-AR')} ARS</span></td>
                 <td data-label="Cantidad">
                     <div class="quantity-controls d-flex align-items-center justify-content-center">
                         <button class="btn btn-sm btn-outline-danger decrease-btn" type="button" data-item-id="${uniqueId}" title="Disminuir">
@@ -250,7 +250,7 @@ function updateCart() {
                         </button>
                     </div>
                 </td>
-                <td data-label="Subtotal"><span style="white-space:nowrap;">$${(item.price * item.quantity).toLocaleString('es-AR')} ARS</span></td>
+                <td data-label="Subtotal"><span>$${(item.price * item.quantity).toLocaleString('es-AR')} ARS</span></td>
                 <td data-label="Eliminar">
                     <button class="btn btn-sm btn-danger remove-btn" data-item-id="${uniqueId}">
                         <i class="fas fa-trash"></i>
@@ -307,7 +307,7 @@ function updateCart() {
     if (cartShippingElement) {
         cartShippingElement.innerHTML = '<div>Retiro en local: <span class="badge bg-success">Gratis</span></div><div>Envío: <span class="fw-bold">A coordinar</span></div>';
     }
-    if (cartTotalElement) cartTotalElement.innerHTML = `<span style="white-space:nowrap;">${subtotal.toLocaleString('es-AR')} ARS</span>`;
+    if (cartTotalElement) cartTotalElement.innerHTML = `<span>${subtotal.toLocaleString('es-AR')} ARS</span>`;
 
     // Habilitar/deshabilitar botón de checkout
     if (checkoutButton) {
@@ -542,35 +542,41 @@ function applySorting(productsToSort) {
     return sortedProducts;
 }
 
-// Función para filtrar productos
-function filterProducts() {
+// =============================================
+// 🔹 1. LÓGICA DE FILTRADO Y BÚSQUEDA DE PRODUCTOS
+// =============================================
+
+// Función centralizada para filtrar y mostrar productos
+function applyFilters() {
     let filteredProducts = [...products];
     
-    // Filtrar por búsqueda
-    const searchTerm = document.getElementById('searchProducts')?.value.toLowerCase();
+    // 1. Filtrar por término de búsqueda
+    const searchTerm = document.getElementById('searchProducts')?.value.toLowerCase().trim();
     if (searchTerm) {
         filteredProducts = filteredProducts.filter(product => 
             product.name.toLowerCase().includes(searchTerm) ||
-            product.description.toLowerCase().includes(searchTerm)
+            product.description.toLowerCase().includes(searchTerm) ||
+            product.category.toLowerCase().includes(searchTerm)
         );
     }
     
-    // Filtrar por categoría
-    const selectedCategories = Array.from(document.querySelectorAll('.filter-category:checked'))
-        .map(checkbox => checkbox.value);
-    if (selectedCategories.length > 0) {
-        filteredProducts = filteredProducts.filter(product => 
-            selectedCategories.includes(product.category)
-        );
+    // 2. Filtrar por categoría (usando los botones de filtro)
+    const activeCategoryFilter = document.querySelector('[data-filter].active');
+    if (activeCategoryFilter) {
+        const category = activeCategoryFilter.getAttribute('data-filter');
+        if (category !== 'todos') {
+            if (category === 'suplementos') {
+                filteredProducts = filteredProducts.filter(p => p.subcategory === 'suplementos');
+            } else {
+                filteredProducts = filteredProducts.filter(p => p.category === category);
+            }
+        }
     }
     
-    // Filtrar por precio
-    const maxPrice = document.getElementById('priceRange')?.value || 200;
-    filteredProducts = filteredProducts.filter(product => product.price <= maxPrice);
-    
-    // Aplicar ordenamiento
+    // 3. Aplicar ordenamiento
     filteredProducts = applySorting(filteredProducts);
     
+    // 4. Mostrar los productos resultantes
     displayProducts(filteredProducts);
 }
 
@@ -598,13 +604,111 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-// Event Listeners
+// =============================================
+// 🔹 2. MANEJO DE EVENTOS PRINCIPALES
+// =============================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializar productos y carrito
-    displayProducts();
+    // --- INICIALIZACIÓN ---
+    // Cargar carrito desde localStorage al iniciar
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+        cart = JSON.parse(savedCart);
+    }
+    // Mostrar productos y actualizar carrito
+    if (document.getElementById('productsGrid')) {
+        applyFilters(); // Usar la nueva función de filtrado
+    }
     updateCart();
+
+    // --- EVENT LISTENERS PARA FILTROS (Página de Productos) ---
+    const searchInput = document.getElementById('searchProducts');
+    if (searchInput) {
+        // Llenar el campo de búsqueda si viene de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchTermFromUrl = urlParams.get('search');
+        if (searchTermFromUrl) {
+            searchInput.value = decodeURIComponent(searchTermFromUrl);
+            applyFilters();
+        }
+        // Listener para la búsqueda en tiempo real
+        searchInput.addEventListener('input', applyFilters);
+    }
+
+    // Listener para el ordenamiento
+    document.getElementById('sortBy')?.addEventListener('change', applyFilters);
+
+    // Listeners para los botones de filtro de categoría
+    document.querySelectorAll('[data-filter]').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Manejar la clase 'active'
+            document.querySelectorAll('[data-filter]').forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Actualizar texto del dropdown si es un item de dropdown
+            const dropdown = this.closest('.dropdown');
+            if (dropdown) {
+                const dropdownButton = dropdown.querySelector('.dropdown-toggle');
+                dropdownButton.textContent = this.textContent;
+                // También marcar el botón principal del dropdown como activo
+                dropdownButton.classList.add('active');
+            }
+
+            applyFilters();
+        });
+    });
+
+    // --- EVENT LISTENERS GENERALES ---
+    // Carrito (móvil y desktop)
+    document.querySelector('.mobile-cart')?.addEventListener('click', (e) => { e.preventDefault(); viewCart(); });
+    document.getElementById('cartButton')?.addEventListener('click', (e) => { e.preventDefault(); viewCart(); });
+
+    // Búsqueda desde la Navbar (para index.html)
+    const navbarSearch = document.getElementById('navbarSearch');
+    if (navbarSearch) {
+        const handleNavbarSearch = () => {
+            const searchTerm = navbarSearch.value.trim();
+            if (searchTerm) {
+                window.location.href = `pages/productos.html?search=${encodeURIComponent(searchTerm)}`;
+            }
+        };
+        navbarSearch.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleNavbarSearch();
+            }
+        });
+        // También para el botón de búsqueda del navbar
+        navbarSearch.nextElementSibling?.addEventListener('click', handleNavbarSearch);
+    }
+
+    // Limpiar modal del carrito al cerrar
+    const cartModal = document.getElementById('cartModal');
+    if (cartModal) {
+        cartModal.addEventListener('hidden.bs.modal', () => {
+            document.body.classList.remove('modal-open');
+            document.querySelector('.modal-backdrop')?.remove();
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+        });
+    }
     
-    // Si estamos en productos.html y hay un parámetro id, abrir el modal de ese producto
+    // Botón de finalizar compra
+    const checkoutButton = document.getElementById('checkoutButton');
+    if (checkoutButton) {
+        checkoutButton.addEventListener('click', () => {
+            const cartData = JSON.parse(localStorage.getItem('cart')) || { items: [] };
+            if (cartData.items.length === 0) {
+                showNotification('Tu carrito está vacío.', 'error');
+                return;
+            }
+            localStorage.setItem('cartItems', JSON.stringify(cartData.items));
+            const targetUrl = window.location.pathname.includes('/pages/') ? 'checkout.html' : 'pages/checkout.html';
+            window.location.href = targetUrl;
+        });
+    }
+
+    // Abrir detalle de producto si viene ID en la URL
     if (window.location.pathname.includes('productos.html')) {
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
@@ -614,281 +718,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => showProductDetail(prod), 300);
             }
         }
-    }
-
-    // Event listeners para filtros
-    document.getElementById('searchProducts')?.addEventListener('input', filterProducts);
-    document.getElementById('sortBy')?.addEventListener('change', () => {
-        // Aplicar ordenamiento inmediatamente
-        const currentProducts = document.querySelectorAll('.product-card').length > 0 ? 
-            Array.from(document.querySelectorAll('.product-card')).map(card => {
-                const productId = card.getAttribute('onclick').match(/showProductDetail\(([^)]+)\)/)[1];
-                return products.find(p => p.id === JSON.parse(productId).id);
-            }).filter(Boolean) : products;
-        
-        const sortedProducts = applySorting(currentProducts);
-        displayProducts(sortedProducts);
-    });
-    document.getElementById('priceRange')?.addEventListener('input', (e) => {
-        document.getElementById('priceValue').textContent = `$${e.target.value}`;
-        filterProducts();
-    });
-    document.querySelectorAll('.filter-category').forEach(checkbox => {
-        checkbox.addEventListener('change', filterProducts);
-    });
-    
-    // Event listener para el carrito móvil
-    const mobileCart = document.querySelector('.mobile-cart');
-    if (mobileCart) {
-        mobileCart.addEventListener('click', function(e) {
-            e.preventDefault();
-            viewCart();
-        });
-    }
-
-    // Event listener para el carrito desktop
-    const cartButton = document.getElementById('cartButton');
-    if (cartButton) {
-        cartButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            viewCart();
-        });
-    }
-
-    // Limpiar backdrop cuando se cierra el modal
-    const cartModal = document.getElementById('cartModal');
-    if (cartModal) {
-        cartModal.addEventListener('hidden.bs.modal', function () {
-            // Remover backdrop y clases del body
-            document.body.classList.remove('modal-open');
-            const backdrop = document.querySelector('.modal-backdrop');
-            if (backdrop) {
-                backdrop.remove();
-            }
-            // Restaurar el scroll
-            document.body.style.overflow = '';
-            document.body.style.paddingRight = '';
-        });
-    }
-
-    // Cargar carrito desde localStorage
-    const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
-        cart = JSON.parse(savedCart);
-    }
-
-    // Inicializar el carrito
-    updateCart();
-});
-// Funciones mejoradas para el buscador
-function applySearch(term) {
-    const searchInput = document.getElementById('searchProducts');
-    searchInput.value = term;
-    filterProducts();
-    showSearchResults();
-}
-
-function showSearchResults() {
-    const searchTerm = document.getElementById('searchProducts').value.toLowerCase();
-    const searchResults = document.getElementById('searchResults');
-    const resultCount = document.getElementById('resultCount');
-    const quickResults = document.getElementById('quickResults');
-    const searchSuggestions = document.getElementById('searchSuggestions');
-
-    if (searchTerm) {
-        // Filtrar productos
-        const filteredProducts = products.filter(product => 
-            product.name.toLowerCase().includes(searchTerm) ||
-            product.category.toLowerCase().includes(searchTerm) ||
-            product.description.toLowerCase().includes(searchTerm)
-        );
-
-        // Mostrar resultados
-        searchResults.classList.remove('d-none');
-        searchSuggestions.classList.add('d-none');
-        resultCount.textContent = filteredProducts.length;
-
-        // Mostrar resultados rápidos
-        if (quickResults) {
-            quickResults.innerHTML = filteredProducts
-                .slice(0, 5)
-                .map(product => `
-                    <div class="list-group-item list-group-item-action">
-                        <div class="d-flex align-items-center">
-                            <img src="${product.image}" alt="${product.name}" 
-                                 style="width: 50px; height: 50px; object-fit: cover; margin-right: 15px;">
-                            <div>
-                                <h6 class="mb-0">${product.name}</h6>
-                                <small class="text-muted">${product.category} - $${product.price}</small>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-        }
-    } else {
-        searchResults.classList.add('d-none');
-        searchSuggestions.classList.remove('d-none');
-    }
-
-    filterProducts();
-}
-
-// Event Listeners para el buscador mejorado
-document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('searchProducts');
-    const clearButton = document.getElementById('clearSearch');
-
-    if (searchInput) {
-        searchInput.addEventListener('input', () => {
-            showSearchResults();
-            clearButton.style.display = searchInput.value ? 'block' : 'none';
-        });
-    }
-
-    if (clearButton) {
-        clearButton.addEventListener('click', () => {
-            searchInput.value = '';
-            showSearchResults();
-            clearButton.style.display = 'none';
-            document.getElementById('searchResults').classList.add('d-none');
-            document.getElementById('searchSuggestions').classList.remove('d-none');
-            filterProducts();
-        });
-    }
-});
-// Función para manejar la búsqueda desde el navbar
-function handleNavbarSearch() {
-    const searchTerm = document.getElementById('navbarSearch').value;
-    if (searchTerm) {
-        // Si estamos en index.html
-        if (window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/')) {
-            window.location.href = 'pages/productos.html?search=' + encodeURIComponent(searchTerm);
-        } 
-        // Si estamos en productos.html
-        else {
-            const searchInput = document.getElementById('searchProducts');
-            if (searchInput) {
-                searchInput.value = searchTerm;
-                filterProducts();
-                showSearchResults();
-            }
-        }
-    }
-}
-
-// Verificar si hay término de búsqueda en la URL al cargar la página
-document.addEventListener('DOMContentLoaded', () => {
-    // Código existente del DOMContentLoaded...
-
-    // Añadir esto para manejar búsquedas desde el index
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchTerm = urlParams.get('search');
-    
-    if (searchTerm) {
-        const searchInput = document.getElementById('searchProducts');
-        const navbarSearch = document.getElementById('navbarSearch');
-        
-        if (searchInput) {
-            searchInput.value = searchTerm;
-            filterProducts();
-            showSearchResults();
-        }
-        
-        if (navbarSearch) {
-            navbarSearch.value = searchTerm;
-        }
-    }
-
-    // Añadir evento para la tecla Enter en el buscador del navbar
-    const navbarSearch = document.getElementById('navbarSearch');
-    if (navbarSearch) {
-        navbarSearch.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                handleNavbarSearch();
-            }
-        });
-    }
-});
-// Efecto de scroll en el navbar
-window.addEventListener('scroll', function() {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.padding = '0.3rem 0';
-    } else {
-        navbar.style.padding = '0.5rem 0';
-    }
-});
-// Función para manejar los filtros de categoría
-function handleCategoryFilter(category) {
-    // Remover clase active de todos los botones y elementos del dropdown
-    document.querySelectorAll('[data-filter]').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    document.querySelectorAll('.dropdown-item').forEach(item => {
-        item.classList.remove('active');
-    });
-
-    // Añadir clase active al botón seleccionado
-    const selectedButton = document.querySelector(`[data-filter="${category}"]`);
-    if (selectedButton) {
-        selectedButton.classList.add('active');
-    }
-
-    // Filtrar productos
-    let filteredProducts;
-    if (category === 'todos') {
-        filteredProducts = [...products];
-    } else if (category === 'suplementos') {
-        // Mostrar todos los productos cuya subcategoría sea suplementos (proteínas y creatinas)
-        filteredProducts = products.filter(product => product.subcategory === 'suplementos');
-    } else if (category === 'proteinas' || category === 'creatinas') {
-        // Filtrar por categoría específica
-        filteredProducts = products.filter(product => product.category === category);
-    } else {
-        filteredProducts = products.filter(product => product.category === category);
-    }
-
-    // Aplicar ordenamiento
-    filteredProducts = applySorting(filteredProducts);
-
-    // Mostrar productos filtrados
-    displayProducts(filteredProducts);
-}
-
-// Agregar event listeners a los botones de filtro
-document.addEventListener('DOMContentLoaded', function() {
-    // Agregar listeners a los botones de filtro
-    document.querySelectorAll('[data-filter]').forEach(button => {
-        button.addEventListener('click', function() {
-            const category = this.getAttribute('data-filter');
-            handleCategoryFilter(category);
-        });
-    });
-
-    // Agregar listeners a los elementos del dropdown
-    document.querySelectorAll('.dropdown-item').forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const category = this.getAttribute('data-filter');
-            handleCategoryFilter(category);
-            
-            // Actualizar el texto del botón dropdown
-            const dropdownButton = this.closest('.dropdown').querySelector('.dropdown-toggle');
-            dropdownButton.textContent = this.textContent;
-        });
-    });
-
-    // Mostrar todos los productos inicialmente
-    displayProducts(products);
-
-    // Filtrar por categoría desde la URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const categoria = urlParams.get('categoria');
-    if (categoria) {
-        handleCategoryFilter(categoria);
-    } else {
-        displayProducts(products);
     }
 });
 // Función mejorada para mostrar notificaciones

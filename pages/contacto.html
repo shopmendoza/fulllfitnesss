@@ -85,62 +85,72 @@
         </div>
     </nav>
 
-    <!-- Modal del Carrito Mejorado -->
-<div class="modal fade" id="cartModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+<!-- Modal del Carrito Mejorado -->
+<div class="modal fade cart-modal" id="cartModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-                <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title">
-                        <i class="fas fa-shopping-cart me-2"></i>
-                        Carrito de Compras
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-shopping-cart me-2"></i>
+                    Tu Carrito
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body">
-                    <!-- Estado del carrito vacío -->
-                    <div id="emptyCart" class="text-center py-5" style="display: none;">
-                        <i class="fas fa-shopping-cart fa-4x text-muted mb-3"></i>
-                        <h4 class="text-muted">Tu carrito está vacío</h4>
-                        <p>¡Agrega algunos productos para comenzar!</p>
-                        <a href="productos.html" class="btn btn-primary">
-                            Ir a Productos
-                        </a>
+            <div class="modal-body p-4">
+                <!-- Estado del carrito vacío -->
+                <div id="emptyCart" class="text-center py-5" style="display: none;">
+                    <div class="empty-cart-animation mb-4">
+                        <i class="fas fa-shopping-cart fa-4x text-muted"></i>
+                        <div class="empty-cart-wave"></div>
+                    </div>
+                    <h4 class="text-muted mb-3">Tu carrito está vacío</h4>
+                    <p class="text-muted mb-4">¡Agrega algunos productos para comenzar!</p>
+                    <a href="productos.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-store me-2"></i>Ver Productos
+                    </a>
+                </div>
+
+                <!-- Contenido del carrito -->
+                <div id="cartContent">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="cartItems">
+                                <!-- Los items se insertarán aquí dinámicamente -->
+                            </tbody>
+                        </table>
                     </div>
 
-                    <!-- Contenido del carrito -->
-                    <div id="cartContent">
-                        <div class="table-responsive">
-                            <table class="table align-middle">
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Precio</th>
-                                        <th>Cantidad</th>
-                                        <th>Subtotal</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="cartItems">
-                                    <!-- Los items se insertarán aquí -->
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Resumen del carrito -->
-                        <div class="card mt-3">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" placeholder="Código de descuento">
-                                            <button class="btn btn-outline-secondary" type="button">Aplicar</button>
+                    <!-- Resumen del carrito -->
+                    <div class="card cart-summary mt-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="cart-totals">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Subtotal:</span>
+                                            <span class="fw-bold">$<span id="cartSubtotal">0.00</span></span>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="text-end">
-                                            <p class="mb-1">Subtotal: $<span id="cartSubtotal">0.00</span></p>
-                                            <p class="mb-1">Envío: $<span id="cartShipping">0.00</span></p>
-                                            <h4 class="mt-2">Total: $<span id="cartTotal">0.00</span></h4>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Envío:</span>
+                                            <span class="fw-bold">A coordinar</span>
+                                        </div>
+                                        <div class="shipping-info small text-success mb-2">
+                                            <i class="fas fa-truck me-1"></i>
+                                            El costo de envío se acuerda con el vendedor.
+                                        </div>
+                                        <hr>
+                                        <div class="d-flex justify-content-between mb-0">
+                                            <h5>Total:</h5>
+                                            <h5 class="text-primary">$<span id="cartTotal">0.00</span></h5>
                                         </div>
                                     </div>
                                 </div>
@@ -148,17 +158,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                        <i class="fas fa-arrow-left me-2"></i>Seguir Comprando
-                    </button>
-                    <button type="button" class="btn btn-primary" id="checkoutButton">
-                        <i class="fas fa-check me-2"></i>Finalizar Compra
-                    </button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-arrow-left me-2"></i>Seguir Comprando
+                </button>
+                <button type="button" class="btn btn-primary" id="checkoutButton">
+                    <i class="fas fa-check me-2"></i>Finalizar Compra
+                </button>
             </div>
         </div>
     </div>
+</div>
     
     <!-- Header de Contacto Mejorado -->
     <header class="contact-header py-5" style="background-image: url('https://images.unsplash.com/photo-1576678927484-cc907957088c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80'); background-size: cover; background-position: center; position: relative; min-height: 550px; display: flex; align-items: center;">
