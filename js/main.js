@@ -37,6 +37,7 @@ const products = [
         category: "proteinas",
         subcategory: "suplementos",
         image: "../images/productos/Whey Protein 2 LB - ULTRA TECH.jpg",
+        nutritionImage: "../images/productos/Whey Protein 2 LB - ULTRA TECH informacion nutricional.jpg",
         description: "Proteína de suero concentrada de 2 libras de la marca Ultra Tech, contribuye a la recuperación muscular y al desarrollo de masa magra.",
         sabores: ["Vainilla", "Chocolate"]
     },
@@ -56,6 +57,7 @@ const products = [
         category: "proteinas",
         subcategory: "suplementos",
         image: "../images/productos/whey-gold-2lb.jpg",
+        nutritionImage: "../images/productos/100 % Whey Protein 2 LB - GOLD NUTRITION informacion nutrional.jpg",
         description: "Proteína 100% de suero de leche de 2 libras, excelente fuente de aminoácidos para favorecer la recuperación y el crecimiento muscular.",
         sabores: ["Vainilla", "Chocolate"]
     },
@@ -79,13 +81,14 @@ const products = [
     },
     {
         id: 9,
-        name: "WHEY PROTEIN x910g - Body Advance",
+        name: "WHEY PROTEIN x907g - Body Advance",
         price: 23500.00,
         category: "proteinas",
         subcategory: "suplementos",
-        image: "../images/productos/proteina body adbance.jpg",
-        description: "Proteína de suero de 910 gramos de Body Advance, excelente opción para complementar la dieta, ganar masa muscular y optimizar la recuperación post entrenamiento.",
-        sabores: ["Chocolate"]
+        image: "../images/productos/WHEY PROTEIN x907g - Body Advance.jpg",
+        nutritionImage: "../images/productos/WHEY PROTEIN x907g - Body Advance informacion nutricional.jpg",
+        description: "Proteína de suero de 907 gramos de Body Advance, excelente opción para complementar la dieta, ganar masa muscular y optimizar la recuperación post entrenamiento.",
+        sabores: ["Chocolate", "Vainilla"]
     }
 ];
 
@@ -305,7 +308,7 @@ function updateCart() {
     // Actualizar totales
     if (cartSubtotalElement) cartSubtotalElement.textContent = subtotal.toLocaleString('es-AR');
     if (cartShippingElement) {
-        cartShippingElement.innerHTML = '<div>Retiro en local: <span class="badge bg-success">Gratis</span></div><div>Envío: <span class="fw-bold">A coordinar</span></div>';
+        cartShippingElement.innerHTML = '<div>Envío: <span class="fw-bold">A coordinar</span></div>';
     }
     if (cartTotalElement) cartTotalElement.innerHTML = `<span>${subtotal.toLocaleString('es-AR')} ARS</span>`;
 
@@ -316,6 +319,15 @@ function updateCart() {
 
     // Guardar en localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// Función para limpiar el carrito
+function clearCart() {
+    cart = { items: [], total: 0 };
+    localStorage.removeItem('cart');
+    localStorage.removeItem('cartItems'); // Asegurarse de limpiar ambos
+    updateCart();
+    console.log('Carrito limpiado y actualizado.');
 }
 
 // Función para actualizar cantidad
@@ -395,28 +407,25 @@ function removeFromCart(productId) {
 
 // Variables globales para el modal de detalle
 let currentProduct = null;
+let currentImageIndex = 0;
+let productImages = [];
 
 // Función para mostrar el detalle del producto
 function showProductDetail(product) {
     currentProduct = product;
+    productImages = [product.image];
+    if (product.nutritionImage) {
+        productImages.push(product.nutritionImage);
+    }
+    currentImageIndex = 0;
+
+    updateGallery();
     
     // Actualizar contenido del modal
-    document.getElementById('productDetailImage').src = product.image;
-    document.getElementById('productDetailImage').alt = product.name;
     document.getElementById('productDetailName').textContent = product.name;
     document.getElementById('productDetailCategory').textContent = product.category;
     document.getElementById('productDetailPrice').textContent = `$${product.price.toLocaleString('es-AR')} ARS`;
     document.getElementById('productDetailDescription').textContent = product.description;
-    // Imagen de valor nutricional
-    if (product.nutritionImage) {
-        document.getElementById('productDetailNutrition').src = product.nutritionImage;
-        document.getElementById('productDetailNutrition').alt = 'Valor nutricional de ' + product.name;
-        document.getElementById('productDetailNutrition').style.display = '';
-    } else {
-        document.getElementById('productDetailNutrition').src = '';
-        document.getElementById('productDetailNutrition').alt = '';
-        document.getElementById('productDetailNutrition').style.display = 'none';
-    }
     // Resetear cantidad
     document.getElementById('productQuantity').value = 1;
     // Mostrar selector de sabor si corresponde
@@ -597,17 +606,70 @@ function showNotification(message, type = 'info') {
     // Animación de entrada
     setTimeout(() => notification.classList.add('show'), 10);
     
-    // Eliminar después de 3 segundos
+    // Eliminar después de 5 segundos
     setTimeout(() => {
         notification.classList.remove('show');
         setTimeout(() => notification.remove(), 300);
-    }, 3000);
+    }, 5000);
+}
+
+function updateGallery() {
+    const gallery = document.getElementById('productImageGallery');
+    const counter = document.getElementById('imageCounter');
+    
+    gallery.innerHTML = productImages.map((img, index) => 
+        `<img src="${img}" class="${index === currentImageIndex ? 'active' : ''}" alt="Imagen de producto" style="cursor: zoom-in;">`
+    ).join('');
+
+    counter.textContent = `${currentImageIndex + 1} / ${productImages.length}`;
+
+    // Re-attach event listener for lightbox
+    const galleryImages = gallery.querySelectorAll('img');
+    galleryImages.forEach(img => {
+        img.addEventListener('click', () => openLightbox(img.src));
+    });
 }
 
 // =============================================
 // 🔹 2. MANEJO DE EVENTOS PRINCIPALES
 // =============================================
 document.addEventListener('DOMContentLoaded', () => {
+    const prevImageBtn = document.getElementById('prevImage');
+    const nextImageBtn = document.getElementById('nextImage');
+
+    if (prevImageBtn && nextImageBtn) {
+        prevImageBtn.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex - 1 + productImages.length) % productImages.length;
+            updateGallery();
+        });
+
+        nextImageBtn.addEventListener('click', () => {
+            currentImageIndex = (currentImageIndex + 1) % productImages.length;
+            updateGallery();
+        });
+    }
+    // --- Manejar redirección post-compra ---
+    if (sessionStorage.getItem('orderPlaced') === 'true') {
+        const handleOrderNotification = () => {
+            // Solo actuar si la pestaña está visible
+            if (document.visibilityState === 'visible') {
+                sessionStorage.removeItem('orderPlaced'); // Limpiar flag para evitar repeticiones
+                clearCart();
+                showNotification('¡Pedido Enviado! Gracias por tu compra.', 'success');
+                // Remover el listener una vez ejecutado
+                document.removeEventListener('visibilitychange', handleOrderNotification);
+            }
+        };
+
+        // Si la pestaña ya está visible al cargar la página, mostrar la notificación.
+        if (document.visibilityState === 'visible') {
+            handleOrderNotification();
+        } else {
+            // Si el usuario estaba en otra pestaña (ej. WhatsApp), esperar a que vuelva.
+            document.addEventListener('visibilitychange', handleOrderNotification);
+        }
+    }
+
     // --- INICIALIZACIÓN ---
     // Cargar carrito desde localStorage al iniciar
     const savedCart = localStorage.getItem('cart');
@@ -730,7 +792,7 @@ function showNotification(message, type = 'success') {
         const bsToast = new bootstrap.Toast(toast, {
             animation: true,
             autohide: true,
-            delay: 3000
+            delay: 5000
         });
         bsToast.show();
     }

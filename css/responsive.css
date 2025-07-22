@@ -930,6 +930,15 @@ Punto de quiebre para Móviles (hasta 768px)
         right: 20px;
         font-size: 2rem;
     }
+
+    .filter-bar .search-compact {
+        flex-grow: 1;
+    }
+
+    .filter-bar .btn-group {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }
 
 /* 
