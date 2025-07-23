@@ -981,7 +981,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (faqQuestions) {
         faqQuestions.forEach(question => {
-            question.addEventListener('click', () => {
+            question.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
                 const questionText = question.textContent;
                 const answerText = faqAnswers[questionText];
 
@@ -990,7 +993,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     answerElement.classList.add('ai-message', 'ai-message-bot');
                     answerElement.innerHTML = `<p>${answerText}</p>`;
                     chatBody.appendChild(answerElement);
-                    chatBody.scrollTop = chatBody.scrollHeight;
+                    
+                    // Defer scroll to prevent layout jump issues on mobile
+                    setTimeout(() => {
+                        chatBody.scrollTop = chatBody.scrollHeight;
+                    }, 100);
                 }
             });
         });
