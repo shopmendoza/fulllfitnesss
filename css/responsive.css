@@ -897,8 +897,8 @@ Punto de quiebre para Móviles (hasta 768px)
 
     .ai-chat-window {
         width: calc(100vw - 30px);
-        max-height: calc(100vh - 100px);
-        bottom: 70px;
+        max-height: calc(100vh - 200px); /* Altura reducida para que no ocupe toda la pantalla */
+        bottom: 80px; /* Ajustado para que esté por encima del botón de chat */
     }
 }
 
