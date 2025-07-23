@@ -874,6 +874,32 @@ Punto de quiebre para Móviles (hasta 768px)
         flex-wrap: wrap;
         justify-content: center;
     }
+
+    /* --- AI Assistant --- */
+    #ai-assistant {
+        bottom: 15px;
+        right: 15px;
+    }
+
+    .ai-chat-bubble {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .ai-assistant-label {
+        font-size: 10px;
+        padding: 3px 8px;
+        margin-top: 8px;
+        top: 100%;
+        bottom: auto;
+    }
+
+    .ai-chat-window {
+        width: calc(100vw - 30px);
+        max-height: calc(100vh - 100px);
+        bottom: 70px;
+    }
 }
 
 /* 

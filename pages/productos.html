@@ -521,5 +521,32 @@ document.getElementById('link-privacidad').addEventListener('click', function(e)
   <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
   <img class="lightbox-content" id="lightboxImg" src="" alt="Imagen expandida">
 </div>
+<!-- AI Assistant -->
+<div id="ai-assistant">
+    <div id="ai-chat-bubble" class="ai-chat-bubble">
+        <i class="fas fa-robot"></i>
+    </div>
+    <div id="ai-chat-window" class="ai-chat-window">
+        <div class="ai-chat-header">
+            <h5>Asistente Virtual</h5>
+            <button id="ai-close-btn" class="ai-close-btn">&times;</button>
+        </div>
+        <div id="ai-chat-body" class="ai-chat-body">
+            <div class="ai-message ai-message-bot">
+                <p>¡Hola! ¿Cómo puedo ayudarte? Aquí tienes algunas preguntas frecuentes:</p>
+                <ul>
+                    <li class="faq-question">¿Cómo hago un pedido?</li>
+                    <li class="faq-question">¿Cómo se paga el producto?</li>
+                    <li class="faq-question">¿Cuánto cuesta el envío a mi zona?</li>
+                    <li class="faq-question">¿Puedo retirar en el local? ¿Dónde queda?</li>
+                    <li class="faq-question">¿Cómo te paso mi ubicación para calcular el envío?</li>
+                </ul>
+            </div>
+        </div>
+        <div class="ai-chat-footer">
+            <p>Si tu pregunta no está en la lista, no dudes en <a href="contacto.html">contactarnos</a>.</p>
+        </div>
+    </div>
+</div>
 </body>
 </html>

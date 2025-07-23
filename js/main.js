@@ -947,3 +947,52 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Inicializar carrito
   updateCart();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const chatBubble = document.getElementById('ai-chat-bubble');
+    const chatWindow = document.getElementById('ai-chat-window');
+    const closeBtn = document.getElementById('ai-close-btn');
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    const chatBody = document.getElementById('ai-chat-body');
+
+    if (chatBubble) {
+        chatBubble.addEventListener('click', () => {
+            if (chatWindow.style.display === 'flex') {
+                chatWindow.style.display = 'none';
+            } else {
+                chatWindow.style.display = 'flex';
+            }
+        });
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            chatWindow.style.display = 'none';
+        });
+    }
+
+    const faqAnswers = {
+        "¿Cómo hago un pedido?": "📲 Podés hacer tu pedido directamente desde nuestra web. Elegís tus productos, los agregas al carrito ,le das al boton finalizar compra completás tus datos de contacto y ubicación seleccionas el método de pago confirmas el pedido y sos dirigido a WhatsApp con un mensaje ya predeterminado con tus datos, método de pago y productos seleccionados, y te respondemos lo antes posible para coordinar la entrega.",
+        "¿Cómo se paga el producto?": "💵 El pago del producto se realiza en el momento de la entrega. No te pedimos que transfieras antes ni abones por adelantado. Pero si el envío para evitar estafas y bromas de mal gusto de esta forma se evitan estafas de la parte del vendedor y el comprador.",
+        "¿Cuánto cuesta el envío a mi zona?": "🚚 El costo del envío se calcula según tu ubicación. Una vez que nos pasás la dirección o ubicación por WhatsApp, te decimos el valor exacto.",
+        "¿Puedo retirar en el local? ¿Dónde queda?": "✅ ¡Sí! Podés retirar sin costo en nuestro punto de entrega. Te pasamos la dirección exacta al coordinar el pedido.",
+        "¿Cómo te paso mi ubicación para calcular el envío?": "Al completar los campos en la sección de datos personales y entrega y confirmar el pedido son enviados a través de WhatsApp y se hace el cálculo dependiendo la distancia con el vendedor."
+    };
+
+    if (faqQuestions) {
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const questionText = question.textContent;
+                const answerText = faqAnswers[questionText];
+
+                if (answerText) {
+                    const answerElement = document.createElement('div');
+                    answerElement.classList.add('ai-message', 'ai-message-bot');
+                    answerElement.innerHTML = `<p>${answerText}</p>`;
+                    chatBody.appendChild(answerElement);
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }
+            });
+        });
+    }
+});
