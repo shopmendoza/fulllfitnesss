@@ -33,7 +33,7 @@ const products = [
     {
         id: 4,
         name: "Whey Protein 2 LB - ULTRA TECH",
-        price: 44500.00,
+        price: 44000.00,
         category: "proteinas",
         subcategory: "suplementos",
         image: "../images/productos/Whey Protein 2 LB - ULTRA TECH.jpg",
@@ -44,7 +44,7 @@ const products = [
     {
         id: 5,
         name: "Creatine Monohydrate 309 G - BSN",
-        price: 37000.00,
+        price: 36500.00,
         category: "creatinas",
         subcategory: "suplementos",
         image: "../images/productos/Creatine Monohydrate 309 G - BSN.jpg",
@@ -53,7 +53,7 @@ const products = [
     {
         id: 6,
         name: "100 % Whey Protein 2 LB - GOLD NUTRITION",
-        price: 36600.00,
+        price: 36500.00,
         category: "proteinas",
         subcategory: "suplementos",
         image: "../images/productos/whey-gold-2lb.jpg",
@@ -82,7 +82,7 @@ const products = [
     {
         id: 9,
         name: "WHEY PROTEIN x907g - Body Advance",
-        price: 23000.00,
+        price: 21500.00,
         category: "proteinas",
         subcategory: "suplementos",
         image: "../images/productos/WHEY PROTEIN x907g - Body Advance.jpg",
